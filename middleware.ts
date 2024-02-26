@@ -16,7 +16,9 @@ export default authMiddleware({
     "/jobs",
     "/ask-question",
     "/api/getQuestionById",
-    "/api/answers"
+    "/api/answers",
+    "/api/answers/getAnswer",
+    "/api/getAnswer"
   ],
   ignoredRoutes: ["/api/webhook/clerk", "/api/openai", "/api/rapidapi"],
 });
