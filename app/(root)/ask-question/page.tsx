@@ -11,7 +11,8 @@ export const metadata: Metadata = {
 };
 
 const Page = async () => {
-  const { userId } = auth();
+  // const { userId } = auth();
+  const userId = "1234"
 
   if (!userId) return null;
 
