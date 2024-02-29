@@ -32,6 +32,7 @@ const Profile = ({ clerkId, user }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const parsedUser = JSON.parse(user);
+  console.log(parsedUser, "parsedUser");
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
