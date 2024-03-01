@@ -25,10 +25,9 @@ export const metadata: Metadata = {
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-  const { userId: clerkId } = auth();
-  console.log(clerkId,"clerk");
-  const user = await currentUser()
-  console.log(user,"user");
+  // const { userId: clerkId } = auth();
+  const clerkId = "65e2496d1a42904e163c5c42";
+  const user = await currentUser();
   let result;
 
   if (searchParams?.filter === "recommended") {

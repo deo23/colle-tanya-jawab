@@ -18,7 +18,8 @@ export default authMiddleware({
     "/api/getQuestionById",
     "/api/answers",
     "/api/answers/getAnswer",
-    "/api/getAnswer"
+    "/api/getAnswer",
+    "/api/user",
   ],
   ignoredRoutes: ["/api/webhook/clerk", "/api/openai", "/api/rapidapi"],
 });
