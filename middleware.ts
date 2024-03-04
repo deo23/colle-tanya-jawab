@@ -20,6 +20,7 @@ export default authMiddleware({
     "/api/answers/getAnswer",
     "/api/getAnswer",
     "/api/user",
+    "/api/question",
     "/api/questions",
   ],
   ignoredRoutes: ["/api/webhook/clerk", "/api/openai", "/api/rapidapi"],
