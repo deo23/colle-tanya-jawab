@@ -5,12 +5,11 @@ import User from "@/database/user.model";
 import { FilterQuery } from "mongoose";
 
 import { connectToDatabase } from "@/lib/mongoose";
+import console from "console";
+import { getTagIdByName } from "@/lib/actions/tag.action";
 
-// localhost:3001/api/question?keyword=[keyword]&&tagId=[tagId]
-// Contoh
-// localhost:3001/api/question?keyword=question&&tagId=65d5ed4c4d17823db461cab5
-// Contoh 2 tag dipisah menggunakan koma (%2C)
-// localhost:3001/api/question?keyword=question&&tagId=65d5ed4c4d17823db461cab5%2C65e25f2c5a9981a64cf79ffb
+// Contoh buat di postman
+// localhost:3001/api/question?q=question%20%23first%20%23second
 export async function GET(req: any) {
   try {
     connectToDatabase();
@@ -20,21 +19,31 @@ export async function GET(req: any) {
 
     const page = 1;
     const pageSize = 10;
-    const searchQuery = searchParams.get("keyword");
-    const tagId = searchParams.get("tagId");
+    const q = searchParams.get("q");
 
-    // Mengkonversi string menjadi array
-    let tagIds;
-    if (tagId) {
-      tagIds = tagId.split(",");
+    // Mencari search query / keyword
+    let searchParamsMatch;
+    let searchQuery;
+    if (q) {
+      searchParamsMatch = q.match(/^\w+/);
+      searchQuery = searchParamsMatch ? searchParamsMatch[0] : "";
     }
+
+    // Mencari tag name
+    let tagsMatch;
+    if (q) {
+      tagsMatch = q.match(/#\w+/g);
+    }
+    let tags: string[] = tagsMatch ? tagsMatch.map((tag) => tag.slice(1)) : [];
+
+    const tagIds = await getTagIdByName(tags);
 
     // Calculate the number of questions to skip based on the page number and page size
     const skipAmount = (page - 1) * pageSize;
 
     const query: FilterQuery<typeof Question> = {};
 
-    if (searchQuery || tagId) {
+    if (searchQuery || tagIds) {
       const searchCriteria: any = [];
 
       if (searchQuery) {
@@ -46,24 +55,18 @@ export async function GET(req: any) {
         });
       }
 
-      // Mengubah array menjadi objek
-      let tagOrConditions;
       if (tagIds) {
-        tagOrConditions = tagIds.map((tag) => ({ tags: tag }));
-      }
-
-      if (tagOrConditions) {
         searchCriteria.push({
-          $and: tagOrConditions,
+          $and: tagIds,
         });
       }
 
       query.$and = searchCriteria;
     }
-    console.log(query, "<< Query");
+
     const questions = await Question.find(query)
-      .populate({ path: "tags", model: Tag })
-      .populate({ path: "author", model: User })
+      .populate({ path: "tags", select: "name" })
+      .populate({ path: "author", select: "username" })
       .skip(skipAmount)
       .limit(pageSize);
 
