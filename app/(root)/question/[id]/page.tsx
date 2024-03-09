@@ -46,6 +46,9 @@ const Page = async ({ params, searchParams }: URLProps) => {
   if (!result) return null;
 
   const showActionButtons = authId && authId === result?.author.authId;
+  console.log("🚀 ~ Page ~ result?.author.authId:", result?.author.authId)
+  console.log("🚀 ~ Page ~ showActionButtons:", showActionButtons)
+  console.log("🚀 ~ Page ~ showActionButtons:", showActionButtons)
 
   return (
     <>
@@ -117,14 +120,14 @@ const Page = async ({ params, searchParams }: URLProps) => {
           ))}
         </div>
 
-        <SignedIn>
+        {/* <SignedIn> */}
           {showActionButtons && (
             <EditDeleteAction
               type="Question"
               itemId={JSON.stringify(result._id)}
             />
           )}
-        </SignedIn>
+        {/* </SignedIn> */}
       </div>
 
       <AllAnswers

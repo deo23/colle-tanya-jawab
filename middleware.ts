@@ -22,6 +22,7 @@ export default authMiddleware({
     "/api/user",
     "/api/questions",
     "/collection",
+    "/question/edit/:id",
   ],
   ignoredRoutes: ["/api/webhook/clerk", "/api/openai", "/api/rapidapi"],
 });

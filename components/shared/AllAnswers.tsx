@@ -87,14 +87,14 @@ const AllAnswers = async ({
               </div>
               <ParseHTML data={answer.content} />
 
-              <SignedIn>
+              {/* <SignedIn> */}
                 {showActionButtons && (
                   <EditDeleteAction
                     type="Answer"
                     itemId={JSON.stringify(answer._id)}
                   />
                 )}
-              </SignedIn>
+              {/* </SignedIn> */}
             </article>
           );
         })}

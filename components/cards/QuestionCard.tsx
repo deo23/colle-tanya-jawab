@@ -52,11 +52,11 @@ const QuestionCard = ({
           </Link>
         </div>
 
-        <SignedIn>
+        {/* <SignedIn> */}
           {showActionButtons && (
             <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
           )}
-        </SignedIn>
+        {/* </SignedIn> */}
       </div>
 
       <div className="mt-3.5 flex flex-wrap gap-2">

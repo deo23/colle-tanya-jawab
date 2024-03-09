@@ -18,6 +18,7 @@ const EditDeleteAction = ({ type, itemId }: Props) => {
     if (type === "Question") {
       router.push(`/question/edit/${JSON.parse(itemId)}`);
     } else if (type === "Answer") {
+      console.log("🚀 ~ handleEdit ~ JSON.parse(itemId):", JSON.parse(itemId))
       router.push(`/edit-answer/${JSON.parse(itemId)}`);
     }
   };
