@@ -18,7 +18,7 @@ export async function GET(req: any) {
       .populate({
         path: "author",
         model: User,
-        select: "_id clerkId name picture",
+        select: "_id authId name picture",
       });
 
     if (!question) {

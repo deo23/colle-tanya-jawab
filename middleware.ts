@@ -21,6 +21,7 @@ export default authMiddleware({
     "/api/getAnswer",
     "/api/user",
     "/api/questions",
+    "/collection",
   ],
   ignoredRoutes: ["/api/webhook/clerk", "/api/openai", "/api/rapidapi"],
 });

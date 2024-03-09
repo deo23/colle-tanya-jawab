@@ -8,7 +8,7 @@ import EditDeleteAction from "@/components/shared/EditDeleteAction";
 import { getFormattedNumber, getTimestamp } from "@/lib/utils";
 
 interface Props {
-  clerkId?: string | null;
+  authId?: string | null;
   _id: string;
   question: {
     _id: string;
@@ -16,7 +16,7 @@ interface Props {
   };
   author: {
     _id: string;
-    clerkId: string;
+    authId: string;
     name: string;
     picture: string;
   };
@@ -25,14 +25,14 @@ interface Props {
 }
 
 const AnswerCard = ({
-  clerkId,
+  authId,
   _id,
   question,
   author,
   upvotes,
   createdAt,
 }: Props) => {
-  const showActionButtons = clerkId && clerkId === author.clerkId;
+  const showActionButtons = authId && authId === author.authId;
 
   return (
     <Link
@@ -62,7 +62,7 @@ const AnswerCard = ({
           alt="user avatar"
           value={author.name}
           title={` • asked ${getTimestamp(createdAt)}`}
-          href={`/profile/${author.clerkId}`}
+          href={`/profile/${author.authId}`}
           textStyles="body-medium text-dark400_light700"
           isAuthor
         />
