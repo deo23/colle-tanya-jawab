@@ -27,9 +27,16 @@ const middleware = authMiddleware({
     "/api/auth/signin/google",
     "/api/auth/callback",
     "/api/auth/callback/google",
-    "/api/auth/error"
+    "/api/auth/error",
   ],
-  ignoredRoutes: ["/api/webhook/clerk", "/api/openai", "/api/rapidapi", "/api/auth/callback/google", "api/auth/error"],
+  ignoredRoutes: [
+    "/api/webhook/clerk",
+    "/api/openai",
+    "/api/rapidapi",
+    "/api/auth/callback/google",
+    "api/auth/error",
+    "/api/status",
+  ],
 });
 
 export const config = {

@@ -1,7 +1,4 @@
 import Link from "next/link";
-
-import { auth, currentUser } from "@clerk/nextjs";
-
 import { Button } from "@/components/ui/button";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import Filter from "@/components/shared/Filter";
@@ -19,6 +16,7 @@ import { HomePageFilters } from "@/constants/filters";
 
 import type { SearchParamsProps } from "@/types";
 import type { Metadata } from "next";
+import { currentProfile } from "@/lib/fetchUserData";
 
 export const metadata: Metadata = {
   title: "Home — DevOverflow",
@@ -27,7 +25,7 @@ export const metadata: Metadata = {
 export default async function Home({ searchParams }: SearchParamsProps) {
   // const { userId: clerkId } = auth();
   const clerkId = "65e2496d1a42904e163c5c42";
-  const user = await currentUser();
+  const user = await currentProfile();
   let result;
 
   if (searchParams?.filter === "recommended") {
