@@ -32,7 +32,7 @@ export async function generateMetadata({
 
 const Page = async ({ params, searchParams }: URLProps) => {
   // const { userId: clerkId } = auth();
-  const clerkId = "1234"
+  const clerkId = "65e2496d1a42904e163c5c42";
 
   let mongoUser;
 

@@ -93,7 +93,7 @@ export async function getUserById(params: { userId: string }) {
     const { userId } = params;
 
     const user = await User.findOne({
-      clerkId: userId,
+      _id: userId,
     });
 
     console.log(user);
@@ -111,7 +111,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
 
     const { userId } = params;
 
-    const user = await User.findOne({ clerkId: userId });
+    const user = await User.findOne({ _id: userId });
 
     if (!user) {
       throw new Error("User not found");
