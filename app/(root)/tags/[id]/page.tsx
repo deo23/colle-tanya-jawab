@@ -22,7 +22,8 @@ export async function generateMetadata({
 }
 
 const Page = async ({ params, searchParams }: URLProps) => {
-  const { userId: clerkId } = auth();
+  // const { userId: authId } = auth();
+  const authId = "65ebb3d12f7d3011af8cb203"
 
   const result = await getQuestionsByTagId({
     tagId: params.id,
@@ -49,7 +50,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
             <QuestionCard
               key={question._id}
               _id={question._id}
-              clerkId={clerkId}
+              authId={authId}
               title={question.title}
               tags={question.tags}
               author={question.author}

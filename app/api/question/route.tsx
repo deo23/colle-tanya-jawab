@@ -64,11 +64,13 @@ export async function GET(req: any) {
       query.$and = searchCriteria;
     }
 
+
     const questions = await Question.find(query)
       .populate({ path: "tags", select: "name" })
       .populate({ path: "author", select: "username" })
       .skip(skipAmount)
       .limit(pageSize);
+
 
     if (!questions) {
       return new Response("Question not found", { status: 404 });

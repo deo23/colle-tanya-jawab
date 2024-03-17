@@ -13,7 +13,8 @@ export const metadata: Metadata = {
 };
 
 const Page = async ({ params }: ParamsProps) => {
-  const { userId } = auth();
+  // const { userId } = auth();
+  const userId = "65ebb3d12f7d3011af8cb203";
 
   if (!userId) return null;
 
@@ -24,7 +25,7 @@ const Page = async ({ params }: ParamsProps) => {
     <>
       <h1 className="h1-bold text-dark100_light900">Edit Profile</h1>
       <div className="mt-9">
-        <Profile clerkId={userId} user={JSON.stringify(mongoUser)} />
+        <Profile authId={userId} user={JSON.stringify(mongoUser)} />
       </div>
     </>
   );

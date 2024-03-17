@@ -53,7 +53,7 @@ const AllAnswers = async ({
             <article key={answer._id} className="light-border border-b py-10">
               <div className="mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
                 <Link
-                  href={`/profile/${answer.author.clerkId}`}
+                  href={`/profile/${answer.author.authId}`}
                   className="flex flex-1 items-start gap-1 sm:items-center"
                 >
                   <Image
@@ -87,14 +87,14 @@ const AllAnswers = async ({
               </div>
               <ParseHTML data={answer.content} />
 
-              <SignedIn>
+              {/* <SignedIn> */}
                 {showActionButtons && (
                   <EditDeleteAction
                     type="Answer"
                     itemId={JSON.stringify(answer._id)}
                   />
                 )}
-              </SignedIn>
+              {/* </SignedIn> */}
             </article>
           );
         })}

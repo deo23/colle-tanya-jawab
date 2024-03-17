@@ -24,4 +24,3 @@
   "onboarded": true,
   "joinedAt": "2024-03-09T00:00:00.000Z"
 }
-```

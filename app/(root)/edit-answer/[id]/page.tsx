@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const Page = async ({ params }: ParamsProps) => {
   // const { userId } = auth();
-  const userId = "65e2496d1a42904e163c5c42";
+  const userId = "65ebb3d12f7d3011af8cb203";
 
   if (!userId) return null;
 
@@ -24,7 +24,7 @@ const Page = async ({ params }: ParamsProps) => {
 
   const result = await getAnswerById({ answerId: params.id });
 
-  if (userId !== result.author.clerkId) redirect("/");
+  if (userId !== result.author.authId) redirect("/");
 
   return (
     <>

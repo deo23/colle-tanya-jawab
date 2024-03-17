@@ -23,12 +23,12 @@ import { toast } from "@/components/ui/use-toast";
 import { createUser, getUserById, updateUser } from "@/lib/actions/user.action";
 import { ProfileValidation } from "@/lib/validations";
 
-import type { ClerkId, CreateUserParams, Picture } from "@/lib/actions/shared.types";
+import type { AuthId, CreateUserParams, Picture } from "@/lib/actions/shared.types";
 
-interface Props extends ClerkId {
+interface Props extends AuthId {
   user: string;
 }
-const Profile = ({ clerkId, user }: Props) => {
+const Profile = ({ authId, user }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const parsedUser = JSON.parse(user);
@@ -51,7 +51,7 @@ const Profile = ({ clerkId, user }: Props) => {
     setIsSubmitting(true);
 
     const userData: CreateUserParams = {
-      clerkId: clerkId,
+      authId: authId,
       name: values.name,
       username: "johndoe",
       email: "johndoe@example.com",
@@ -59,14 +59,14 @@ const Profile = ({ clerkId, user }: Props) => {
     };
 
     try {
-      const userId = clerkId;
+      const userId = authId;
       const user = await getUserById({ userId });
       if (!user) {
         const newUser = await createUser(JSON.parse(JSON.stringify(userData)));
         console.log("User created successfully:", newUser);
       }
       await updateUser({
-        clerkId,
+        authId,
         updateData: {
           name: values.name,
           username: values.username,

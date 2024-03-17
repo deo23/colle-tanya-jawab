@@ -19,15 +19,17 @@ export const metadata: Metadata = {
 };
 
 export default async function Collection({ searchParams }: SearchParamsProps) {
-  const { userId: clerkId } = auth();
+  // const { userId: authId } = auth();
 
-  if (!clerkId) return null;
+  const authId = "65ebb3d12f7d3011af8cb203";
+  const userId = authId;
+  if (!authId) return null;
 
-  const mongoUser = await getUserById({ userId: clerkId });
+  const mongoUser = await getUserById({ userId: authId });
   if (!mongoUser?.onboarded) redirect("/onboarding");
 
   const result = await getSavedQuestions({
-    clerkId,
+    authId,
     searchQuery: searchParams.q,
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
@@ -57,7 +59,7 @@ export default async function Collection({ searchParams }: SearchParamsProps) {
             <QuestionCard
               key={question._id}
               _id={question._id}
-              clerkId={clerkId}
+              authId={authId}
               title={question.title}
               tags={question.tags}
               author={question.author}

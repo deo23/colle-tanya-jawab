@@ -122,7 +122,7 @@ export async function getQuestionsByTagId(params: GetQuestionByTagIdParams) {
       },
       populate: [
         { path: "tags", model: Tag, select: "_id name" },
-        { path: "author", model: User, select: "_id clerkId name picture" },
+        { path: "author", model: User, select: "_id authId name picture" },
       ],
     });
 

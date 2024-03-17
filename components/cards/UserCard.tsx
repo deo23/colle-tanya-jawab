@@ -9,7 +9,7 @@ import RenderTag from "@/components/shared/RenderTag";
 interface Props {
   user: {
     _id: string;
-    clerkId: string;
+    authId: string;
     picture: string;
     name: string;
     username: string;
@@ -23,7 +23,7 @@ const UserCard = async ({ user }: Props) => {
 
   return (
     <Link
-      href={`/profile/${user.clerkId}`}
+      href={`/profile/${user.authId}`}
       className="shadow-light100_darknone w-full max-xs:min-w-full xs:w-[260px]"
     >
       <article className="background-light900_dark200 light-border flex w-full flex-col items-center justify-center rounded-2xl border p-8">

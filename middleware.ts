@@ -37,6 +37,7 @@ const middleware = authMiddleware({
     "/api/auth/callback/google",
     "api/auth/error",
     "/api/status",
+
   ],
 });
 
