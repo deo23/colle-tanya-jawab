@@ -15,6 +15,7 @@ const middleware = authMiddleware({
     "/community",
     "/jobs",
     "/ask-question",
+    "/edit-answer/:id",
     "/api/getQuestionById",
     "/api/answers",
     "/api/answers/getAnswer",

@@ -19,7 +19,7 @@ const Navbar = () => {
         />
 
         <p className="h2-bold font-spaceGrotesk text-dark-100 dark:text-light-900 max-sm:hidden">
-          Dev<span className="text-primary-500">Overflow</span>
+          Colle<span className="text-primary-500">Overflow</span>
         </p>
       </Link>
 
