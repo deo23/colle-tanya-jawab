@@ -26,7 +26,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
 
   // const { userId: authId } = auth();
   const authId = "65ebb3d12f7d3011af8cb203";
-  // const user = await currentProfile();
+  const user = await currentProfile();
 
   let result;
 
