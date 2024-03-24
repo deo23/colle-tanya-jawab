@@ -23,7 +23,7 @@ export async function generateMetadata({
 
 const Page = async ({ params, searchParams }: URLProps) => {
   // const { userId: authId } = auth();
-  const authId = "65ebb3d12f7d3011af8cb203"
+  const authId = "65dfee47d87246ca81ba274e"
 
   const result = await getQuestionsByTagId({
     tagId: params.id,

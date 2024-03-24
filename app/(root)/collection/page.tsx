@@ -20,9 +20,8 @@ export const metadata: Metadata = {
 
 export default async function Collection({ searchParams }: SearchParamsProps) {
   // const { userId: authId } = auth();
-
-  const authId = "65ebb3d12f7d3011af8cb203";
-  const userId = authId;
+  const authId = "65dfee47d87246ca81ba274e";
+  // const userId = authId;
   if (!authId) return null;
 
   const mongoUser = await getUserById({ userId: authId });

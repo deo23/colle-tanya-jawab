@@ -39,7 +39,7 @@ const QuestionCard = ({
   const showActionButtons = authId && authId === author.authId;
 
   return (
-    <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
+    <div className="card-wrapper rounded-[10px] p-9 sm:px-11 shadow-2xl" style={{ backgroundColor: 'rgba(238,238,238,255)' }} >
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
           <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">

@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
-import SearchInput from "@/components/shared/search/Search";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
 import HomeFilters from "@/components/shared/Filters";
 import QuestionCard from "@/components/cards/QuestionCard";
-import { useState } from "react";
 
 import {
   getQuestions,
@@ -20,12 +18,11 @@ import type { SearchParamsProps } from "@/types";
 import type { Metadata } from "next";
 import { currentProfile } from "@/lib/fetchUserData";
 
-
 export const metadata: Metadata = {
   title: "Home — DevOverflow",
 };
 
-export default async function Home({ searchParams }: SearchParamsProps) {
+export default async function searchResultsTagQuestion({ searchParams }: SearchParamsProps) {
 
   // const { userId: authId } = auth();
   const authId = "65dfee47d87246ca81ba274e";
@@ -54,29 +51,6 @@ export default async function Home({ searchParams }: SearchParamsProps) {
     });
   }
 
-  // const [searchInput, setSearchInput] = useState('');
-
-  // const handleSearch = () => {
-  //   // Mengubah nilai input pencarian ke dalam format yang diinginkan untuk parameter API
-  //   const formattedSearchQuery = searchInput.replace(/#/g, '%23').replace(/\s/g, '%20');
-
-  //   // Memanggil API dengan parameter yang telah diformat
-  //   fetch(`http://localhost:3001/api/question?q=${formattedSearchQuery}`)
-  //       .then(response => {
-  //           if (!response.ok) {
-  //               throw new Error('Network response was not ok');
-  //           }
-  //           return response.json();
-  //       })
-  //       .then(data => {
-  //           // Lakukan sesuatu dengan data yang diperoleh dari API (misalnya, tampilkan hasil di UI)
-  //           console.log(data);
-  //       })
-  //       .catch(error => {
-  //           console.error('There has been a problem with your fetch operation:', error);
-  //       });
-  // };
-
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -89,9 +63,22 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         </Link>
       </div>
 
+    
       <div className="mt-11 w-full">
         <div className="flex items-center justify-between max-sm:flex-col max-sm:items-start">
-          <SearchInput/>
+          <LocalSearchbar
+            route="/"
+            iconPosition="left"
+            imgSrc="/assets/icons/search.svg"
+            placeholder="Search for questions"
+            otherClasses="flex-1"
+          />
+
+          <Link href="/search-by-tag-question" className="max-sm:mt-4">
+            <Button className="primary-gradient min-h-[50px] px-4 py-4 !text-light-900">
+              Search
+            </Button>
+          </Link>
         </div>
       </div>
 
