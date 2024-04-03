@@ -47,7 +47,7 @@ export const currentProfile = async () => {
   if (!existingProfile) {
     // Profile doesn't exist, create a dummy profile
     const dummyProfile = {
-      authId: "CL123",
+      userId: "CL123",
       name: userData.nama,
       username: userData.username,
       email: userData.email,

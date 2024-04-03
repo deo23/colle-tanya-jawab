@@ -10,7 +10,7 @@
 
 ```json
 {
-  "authId": "65ebb3d12f7d3011af8cb203",
+  "userId": "65ebb3d12f7d3011af8cb203",
   "name": "John Doe",
   "username": "john_doe",
   "email": "john@example.com",
