@@ -1,4 +1,4 @@
-# Project 3 - Q&A
+# Project 3 - Tanya Jawab
 
 ## Setup Instructions
 
@@ -36,13 +36,13 @@
 - Navigate to the `frontend` directory in the dashboard project.
 - Run `npm run start`.
 
-### Step 3: Run Q&A Project
-- Run `npm run dev` in the Q&A project.
+### Step 3: Run Tanya Jawab Project
+- Run `npm run dev` in the Tanya Jawab project.
 
 ### Step 4: Access Dashboard
 - Access the dashboard at [http://localhost:3000/](http://localhost:3000/).
 - Login with Google.
 
-### Step 5: Access Q&A
-- Access the Q&A project at [http://localhost:3001/](http://localhost:3001/).
+### Step 5: Access Tanya Jawab
+- Access the Tanya Jawab project at [http://localhost:3001/](http://localhost:3001/).
 
