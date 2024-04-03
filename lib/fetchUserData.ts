@@ -66,6 +66,9 @@ export const currentProfile = async () => {
     const createdProfile = await createUser(dummyProfile);
     if (createdProfile) {
       console.log("Dummy profile created:", createdProfile);
+      // Update userId with the string representation of the _id field
+      await User.updateOne({ _id: createdProfile._id }, { $set: { userId: createdProfile._id.toString() } });
+      console.log("userId updated:", createdProfile._id.toString());
     }
   } else {
     console.log("Profile already exists:", existingProfile);

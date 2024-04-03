@@ -49,11 +49,9 @@ const Page = async ({ params, searchParams }: URLProps) => {
   const result = await getQuestionById({ questionId: params.id });
   if (!result) return null;
 
-  const showActionButtons = userId && userId === result?.author.userId;
-  console.log("🚀 ~ Page ~ result?.author.userId:", result?.author.userId)
-  console.log("🚀 ~ Page ~ showActionButtons:", showActionButtons)
-  console.log("🚀 ~ Page ~ showActionButtons:", showActionButtons)
-
+  const showActionButtons = userId && userId === result.author._id.toString();
+  console.log("🚀 ~ Page ~ result:", result.author._id.toString())
+  
   return (
     <>
       <div className="flex-start w-full flex-col">
