@@ -20,6 +20,8 @@ import { getFormattedNumber, getTimestamp } from "@/lib/utils";
 import type { URLProps } from "@/types";
 import type { Metadata } from "next";
 
+import { currentProfile } from "@/lib/fetchUserData";
+
 export async function generateMetadata({
   params,
 }: Omit<URLProps, "searchParams">): Promise<Metadata> {
@@ -31,13 +33,15 @@ export async function generateMetadata({
 }
 
 const Page = async ({ params, searchParams }: URLProps) => {
-  // const { userId: authId } = auth();
-  const authId = "65ebb3d12f7d3011af8cb203";
+  // const { userId: userId } = auth();
+  //const userId = "65ebb3d12f7d3011af8cb203";
+  const user = await currentProfile();
+  const userId = user._id.toString();
 
   let mongoUser;
 
-  if (authId) {
-    mongoUser = await getUserById({ userId: authId });
+  if (userId) {
+    mongoUser = await getUserById({ userId: userId });
   } else {
     return redirect("/sign-in");
   }
@@ -45,17 +49,15 @@ const Page = async ({ params, searchParams }: URLProps) => {
   const result = await getQuestionById({ questionId: params.id });
   if (!result) return null;
 
-  const showActionButtons = authId && authId === result?.author.authId;
-  console.log("🚀 ~ Page ~ result?.author.authId:", result?.author.authId)
-  console.log("🚀 ~ Page ~ showActionButtons:", showActionButtons)
-  console.log("🚀 ~ Page ~ showActionButtons:", showActionButtons)
-
+  const showActionButtons = userId && userId === result.author._id.toString();
+  console.log("🚀 ~ Page ~ result:", result.author._id.toString())
+  
   return (
     <>
       <div className="flex-start w-full flex-col">
         <div className="flex w-full flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
           <Link
-            href={`/profile/${result.author.authId}`}
+            href={`/profile/${result.author.userId}`}
             className="flex items-center justify-start gap-1"
           >
             <Image

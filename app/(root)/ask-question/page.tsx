@@ -5,6 +5,7 @@ import Question from "@/components/forms/Question";
 
 import { getUserById } from "@/lib/actions/user.action";
 import type { Metadata } from "next";
+import { currentProfile } from "@/lib/fetchUserData";
 
 export const metadata: Metadata = {
   title: "Ask a Question — DevOverflow",
@@ -12,7 +13,8 @@ export const metadata: Metadata = {
 
 const Page = async () => {
   // const { userId } = auth();
-  const userId = "65ebb3d12f7d3011af8cb203";
+  const user = await currentProfile();
+  const userId = user._id.toString();
 
   if (!userId) return null;
 

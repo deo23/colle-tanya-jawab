@@ -7,10 +7,10 @@ import type { UserId } from "@/lib/actions/shared.types";
 import type { SearchParamsProps } from "@/types";
 
 interface Props extends SearchParamsProps, UserId {
-  authId?: string | null;
+  userId?: string | null;
 }
 
-const QuestionsTab = async ({ searchParams, userId, authId }: Props) => {
+const QuestionsTab = async ({ searchParams, userId, userId }: Props) => {
   const result = await getUserQuestions({
     userId,
     page: searchParams.page ? +searchParams.page : 1,
@@ -22,7 +22,7 @@ const QuestionsTab = async ({ searchParams, userId, authId }: Props) => {
         <QuestionCard
           key={question._id}
           _id={question._id}
-          authId={authId}
+          userId={userId}
           title={question.title}
           tags={question.tags}
           author={question.author}

@@ -47,7 +47,7 @@ export const currentProfile = async () => {
   if (!existingProfile) {
     // Profile doesn't exist, create a dummy profile
     const dummyProfile = {
-      clerkId: "CL123",
+      userId: "CL123",
       name: userData.nama,
       username: userData.username,
       email: userData.email,
@@ -66,6 +66,9 @@ export const currentProfile = async () => {
     const createdProfile = await createUser(dummyProfile);
     if (createdProfile) {
       console.log("Dummy profile created:", createdProfile);
+      // Update userId with the string representation of the _id field
+      await User.updateOne({ _id: createdProfile._id }, { $set: { userId: createdProfile._id.toString() } });
+      console.log("userId updated:", createdProfile._id.toString());
     }
   } else {
     console.log("Profile already exists:", existingProfile);

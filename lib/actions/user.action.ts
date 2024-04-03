@@ -41,9 +41,9 @@ export async function updateUser(params: UpdateUserParams) {
   try {
     connectToDatabase();
 
-    const { authId, updateData, path } = params;
+    const { userId, updateData, path } = params;
 
-    await User.findOneAndUpdate({ authId }, updateData, {
+    await User.findOneAndUpdate({ userId }, updateData, {
       new: true,
     });
 
@@ -58,9 +58,9 @@ export async function deleteUser(params: DeleteUserParams) {
   try {
     connectToDatabase();
 
-    const { authId } = params;
+    const { userId } = params;
 
-    const user = await User.findOneAndDelete({ authId });
+    const user = await User.findOneAndDelete({ userId });
 
     if (!user) {
       throw new Error("User not found");
@@ -285,7 +285,7 @@ export async function getSavedQuestions(params: GetSavedQuestionParams) {
   try {
     connectToDatabase();
 
-    const { authId, page = 1, pageSize = 10, filter, searchQuery } = params;
+    const { userId, page = 1, pageSize = 10, filter, searchQuery } = params;
 
     // Calculate the number of questions to skip based on the page number and page size
     const skipAmount = (page - 1) * pageSize;
@@ -318,7 +318,7 @@ export async function getSavedQuestions(params: GetSavedQuestionParams) {
         break;
     }
 
-    const user = await User.findOne({ authId }).populate({
+    const user = await User.findOne({ userId }).populate({
       path: "saved",
       match: query,
       options: {
@@ -328,7 +328,7 @@ export async function getSavedQuestions(params: GetSavedQuestionParams) {
       },
       populate: [
         { path: "tags", model: Tag, select: "_id name" },
-        { path: "author", model: User, select: "_id authId name picture" },
+        { path: "author", model: User, select: "_id userId name picture" },
       ],
     });
 
@@ -365,7 +365,7 @@ export async function getUserAnswers(params: GetUserStatsParams) {
       .skip(skipAmount)
       .limit(pageSize)
       .populate("question", "_id title")
-      .populate("author", "_id authId name picture");
+      .populate("author", "_id userId name picture");
 
     const isNext = totalAnswers > skipAmount + userAnswers.length;
 
@@ -394,7 +394,7 @@ export async function getUserQuestions(params: GetUserStatsParams) {
       .skip(skipAmount)
       .limit(pageSize)
       .populate("tags", "_id name")
-      .populate("author", "_id authId name picture");
+      .populate("author", "_id userId name picture");
 
     const isNext = totalQuestions > skipAmount + userQuestions.length;
 
