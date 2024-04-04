@@ -23,7 +23,7 @@ const Page = async () => {
         </p>
 
         <div className="background-light850_dark100 mt-9 p-10">
-          <Profile authId={userId} user={JSON.stringify(mongoUser)} />
+          <Profile userId={userId} user={JSON.stringify(mongoUser)} />
         </div>
       </main>
     </>
