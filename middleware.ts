@@ -30,6 +30,7 @@ const middleware = authMiddleware({
     "/api/auth/callback",
     "/api/auth/callback/google",
     "/api/auth/error",
+    "/onboarding"
   ],
   ignoredRoutes: [
     "/api/webhook/clerk",
