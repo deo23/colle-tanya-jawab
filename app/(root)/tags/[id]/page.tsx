@@ -9,6 +9,8 @@ import { getTagById, getQuestionsByTagId } from "@/lib/actions/tag.action";
 
 import type { URLProps } from "@/types";
 import type { Metadata } from "next";
+import { currentProfile } from "@/lib/fetchUserData";
+
 
 export async function generateMetadata({
   params,
@@ -22,7 +24,11 @@ export async function generateMetadata({
 }
 
 const Page = async ({ params, searchParams }: URLProps) => {
-  const { userId: clerkId } = auth();
+  // const { userId: userId } = auth();
+  //const userId = "65ebb3d12f7d3011af8cb203"
+  const user = await currentProfile();
+  const userId = user._id.toString();
+  
 
   const result = await getQuestionsByTagId({
     tagId: params.id,
@@ -49,7 +55,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
             <QuestionCard
               key={question._id}
               _id={question._id}
-              clerkId={clerkId}
+              userId={userId}
               title={question.title}
               tags={question.tags}
               author={question.author}

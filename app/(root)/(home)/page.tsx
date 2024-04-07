@@ -23,15 +23,19 @@ export const metadata: Metadata = {
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-  // const { userId: clerkId } = auth();
-  const clerkId = "65e2496d1a42904e163c5c42";
-  // const user = await currentProfile();
+
+  // const { userId: userId } = auth();
+  const user = await currentProfile();
+  const userId = user._id.toString();
+  
+  console.log("🚀 ~ Home ~ user:", user._id.toString())
+
   let result;
 
   if (searchParams?.filter === "recommended") {
-    if (clerkId) {
+    if (userId) {
       result = await getRecommendedQuestions({
-        userId: clerkId,
+        userId: userId,
         searchQuery: searchParams.q,
         page: searchParams.page ? +searchParams.page : 1,
       });
@@ -85,7 +89,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
             <QuestionCard
               key={question._id}
               _id={question._id}
-              clerkId={clerkId}
+              userId={userId}
               title={question.title}
               tags={question.tags}
               author={question.author}

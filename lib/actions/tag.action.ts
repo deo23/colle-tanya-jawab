@@ -82,6 +82,22 @@ export async function getTagById(params: GetTagByIdParams) {
   }
 }
 
+// Get Tag ID
+export async function getTagIdByName(tagNames: string[]) {
+  try {
+    connectToDatabase();
+
+    const tags = await Tag.find({
+      name: { $in: tagNames },
+    }).select("_id");
+
+    return tags.map((tag) => ({ tags: tag._id.toString() }));
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
 export async function getQuestionsByTagId(params: GetQuestionByTagIdParams) {
   try {
     connectToDatabase();
@@ -106,7 +122,7 @@ export async function getQuestionsByTagId(params: GetQuestionByTagIdParams) {
       },
       populate: [
         { path: "tags", model: Tag, select: "_id name" },
-        { path: "author", model: User, select: "_id clerkId name picture" },
+        { path: "author", model: User, select: "_id userId name picture" },
       ],
     });
 

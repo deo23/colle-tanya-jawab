@@ -16,13 +16,13 @@ interface QuestionProps {
     _id: string;
     name: string;
     picture: string;
-    clerkId: string;
+    userId: string;
   };
   upvotes: string[];
   views: number;
   answers: Array<object>;
   createdAt: Date;
-  clerkId?: string | null;
+  userId?: string | null;
 }
 
 const QuestionCard = ({
@@ -34,9 +34,9 @@ const QuestionCard = ({
   views,
   answers,
   createdAt,
-  clerkId,
+  userId,
 }: QuestionProps) => {
-  const showActionButtons = clerkId && clerkId === author.clerkId;
+  const showActionButtons = userId && userId === author.userId;
 
   return (
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
@@ -52,11 +52,11 @@ const QuestionCard = ({
           </Link>
         </div>
 
-        <SignedIn>
+        {/* <SignedIn> */}
           {showActionButtons && (
             <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
           )}
-        </SignedIn>
+        {/* </SignedIn> */}
       </div>
 
       <div className="mt-3.5 flex flex-wrap gap-2">

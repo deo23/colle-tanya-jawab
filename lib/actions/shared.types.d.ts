@@ -9,6 +9,11 @@ interface ClerkId {
   clerkId: string;
 }
 
+interface userId{
+  userId: string;
+
+}
+
 interface Picture{
   picture: string;
 
@@ -64,7 +69,7 @@ interface Searchable
 /**
  * Interfaces for user actions
  */
-export interface CreateUserParams extends ClerkId {
+export interface CreateUserParams extends userId {
   name: string;
   username: string;
   email: string;
@@ -82,11 +87,11 @@ export interface GetJobsParams extends Searchable {
   skills?: boolean | string;
 }
 
-export interface UpdateUserParams extends ClerkId, Path {
+export interface UpdateUserParams extends userId, Path {
   updateData: Partial<IUser>;
 }
 
-export interface DeleteUserParams extends ClerkId {}
+export interface DeleteUserParams extends userId {}
 
 export interface GetUserStatsParams
   extends UserId,
@@ -96,7 +101,7 @@ export interface GetUserStatsParams
 export interface ToggleSaveQuestionParams extends UserId, QuestionId, Path {}
 
 export interface GetSavedQuestionParams
-  extends ClerkId,
+  extends userId,
     OptionalPage,
     OptionalPageSize,
     OptionalSearch,

@@ -8,7 +8,7 @@ import EditDeleteAction from "@/components/shared/EditDeleteAction";
 import { getFormattedNumber, getTimestamp } from "@/lib/utils";
 
 interface Props {
-  clerkId?: string | null;
+  userId?: string | null;
   _id: string;
   question: {
     _id: string;
@@ -16,7 +16,7 @@ interface Props {
   };
   author: {
     _id: string;
-    clerkId: string;
+    userId: string;
     name: string;
     picture: string;
   };
@@ -25,14 +25,17 @@ interface Props {
 }
 
 const AnswerCard = ({
-  clerkId,
+  userId,
   _id,
   question,
   author,
   upvotes,
   createdAt,
 }: Props) => {
-  const showActionButtons = clerkId && clerkId === author.clerkId;
+  const showActionButtons = userId && userId === author.userId;
+  console.log("🚀 ~ author.userId:", author.userId)
+  console.log("🚀 ~ userId:", userId)
+  console.log("🚀 ~ showActionButtons:", showActionButtons)
 
   return (
     <Link
@@ -49,11 +52,11 @@ const AnswerCard = ({
           </h3>
         </div>
 
-        <SignedIn>
+        {/* <SignedIn> */}
           {showActionButtons && (
             <EditDeleteAction type="Answer" itemId={JSON.stringify(_id)} />
           )}
-        </SignedIn>
+        {/* </SignedIn> */}
       </div>
 
       <div className="flex-between mt-6 w-full flex-wrap gap-3">
@@ -62,7 +65,7 @@ const AnswerCard = ({
           alt="user avatar"
           value={author.name}
           title={` • asked ${getTimestamp(createdAt)}`}
-          href={`/profile/${author.clerkId}`}
+          href={`/profile/${author.userId}`}
           textStyles="body-medium text-dark400_light700"
           isAuthor
         />

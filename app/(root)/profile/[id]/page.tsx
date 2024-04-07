@@ -27,7 +27,8 @@ export async function generateMetadata({
 }
 
 const Page = async ({ params, searchParams }: URLProps) => {
-  const { userId: clerkId } = auth();
+  // const { userId: userId } = auth();
+  const userId = "65ebb3d12f7d3011af8cb203"
   const userInfo = await getUserInfo({ userId: params.id });
 
   return (
@@ -82,7 +83,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
 
         <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
           <SignedIn>
-            {clerkId === userInfo.user.clerkId && (
+            {userId === userInfo.user.userId && (
               <Link href="/profile/edit">
                 <Button className="paragraph-medium btn-secondary text-dark300_light900 min-h-[46px] min-w-[175px] px-4 py-3">
                   Edit Profile
@@ -117,14 +118,14 @@ const Page = async ({ params, searchParams }: URLProps) => {
             <QuestionsTab
               searchParams={searchParams}
               userId={userInfo.user._id}
-              clerkId={clerkId}
+              userId={userId}
             />
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
             <AnswersTab
               searchParams={searchParams}
               userId={userInfo.user._id}
-              clerkId={clerkId}
+              userId={userId}
             />
           </TabsContent>
         </Tabs>
