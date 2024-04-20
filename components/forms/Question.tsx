@@ -58,43 +58,52 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
       title: parsedQuestionDetails?.title || "",
       explanation: parsedQuestionDetails?.content || "",
       tags: groupedTags || [],
+      anonymous: parsedQuestionDetails?.anonymous || false, // Set anonymous value to "CONTOH"
     },
   });
+  
 
   async function onSubmit(values: z.infer<typeof QuestionValidation>) {
     setIsSubmitting(true);
-
+    
     try {
-      if (type === "Edit") {
-        await editQuestion({
-          questionId: parsedQuestionDetails._id,
-          title: values.title,
-          content: values.explanation,
-          path: pathname,
-        });
-        router.push(`/question/${parsedQuestionDetails._id}`);
-      } else {
-        await createQuestion({
-          title: values.title,
-          content: values.explanation,
-          tags: values.tags,
-          author: JSON.parse(mongoUserId),
-          path: pathname,
-        });
+        const { title, explanation, tags, anonymous } = values; // Destructure 'anonymous'
+        console.log("Submitting with values:", values); // Log all form values
 
-        // navigate to home page
-        router.push("/");
-      }
+        if (type === "Edit") {
+          await editQuestion({
+            questionId: parsedQuestionDetails._id,
+            title,
+            content: explanation,
+            anonymous, // Set anonymous value to "CONTOH"
+            path: pathname,
+          });
+          router.push(`/question/${parsedQuestionDetails._id}`);
+        } else {
+          await createQuestion({
+            title,
+            content: explanation,
+            tags,
+            author: JSON.parse(mongoUserId),
+            anonymous, // Set anonymous value to "CONTOH"
+            path: pathname,
+            
+          });
+
+          // navigate to home page
+          router.push("/");
+        }
+
     } catch (error) {
       toast({
         title: `Error ${type === "Edit" ? "editing" : "posting"} question ⚠️`,
         variant: "destructive",
       });
-
+  
       console.error(error);
     } finally {
       setIsSubmitting(false);
-
+  
       toast({
         title: `Question ${
           type === "Edit" ? "edited" : "posted"
@@ -103,6 +112,9 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
       });
     }
   }
+  
+  
+  
 
   const handleInputKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
@@ -200,6 +212,32 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="anonymous"
+          render={({ field }) => (
+            <FormItem className="flex w-full flex-col">
+              <FormLabel className="paragraph-semibold text-dark400_light800">
+                Anonymous
+              </FormLabel>
+              <FormControl className="mt-3.5">
+                <input
+                  type="checkbox"
+                  {...field}
+                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                  value={field.value ? 'true' : 'false'}
+                  onChange={(e) => field.onChange(e.target.checked)}
+                />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
+        />
+
+
+
+
 
         <FormField
           control={form.control}
