@@ -39,8 +39,9 @@ export const currentProfile = async () => {
       Accept: "application/json",
     },
   };
+  
   // Check if the profile exists
-  const userData = (await axios.get<Mahasiswa>(url + "/mahasiswa", config))
+  const userData = (await axios.get<Mahasiswa>(url + "/user", config))
     .data;
   console.log("user data : ", userData);
   const existingProfile = await User.findOne({ email: userData.email });
