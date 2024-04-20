@@ -13,22 +13,24 @@ import { QuestionFilters } from "@/constants/filters";
 
 import type { SearchParamsProps } from "@/types";
 import type { Metadata } from "next";
+import { currentProfile } from "@/lib/fetchUserData";
 
 export const metadata: Metadata = {
   title: "Collection — DevOverflow",
 };
 
 export default async function Collection({ searchParams }: SearchParamsProps) {
-  // const { userId: authId } = auth();
-  const authId = "65dfee47d87246ca81ba274e";
-  // const userId = authId;
-  if (!authId) return null;
+  // const { userId: userId } = auth();
 
-  const mongoUser = await getUserById({ userId: authId });
+  const user = await currentProfile();
+  const userId = user._id.toString();
+  if (!userId) return null;
+
+  const mongoUser = await getUserById({ userId: userId });
   if (!mongoUser?.onboarded) redirect("/onboarding");
 
   const result = await getSavedQuestions({
-    authId,
+    userId,
     searchQuery: searchParams.q,
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
@@ -58,7 +60,7 @@ export default async function Collection({ searchParams }: SearchParamsProps) {
             <QuestionCard
               key={question._id}
               _id={question._id}
-              authId={authId}
+              userId={userId}
               title={question.title}
               tags={question.tags}
               author={question.author}

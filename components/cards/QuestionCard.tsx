@@ -16,13 +16,13 @@ interface QuestionProps {
     _id: string;
     name: string;
     picture: string;
-    authId: string;
+    userId: string;
   };
   upvotes: string[];
   views: number;
   answers: Array<object>;
   createdAt: Date;
-  authId?: string | null;
+  userId?: string | null;
 }
 
 const QuestionCard = ({
@@ -34,9 +34,9 @@ const QuestionCard = ({
   views,
   answers,
   createdAt,
-  authId,
+  userId,
 }: QuestionProps) => {
-  const showActionButtons = authId && authId === author.authId;
+  const showActionButtons = userId && userId === author.userId;
 
   return (
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11 shadow-2xl" style={{ backgroundColor: 'rgba(238,238,238,255)' }} >

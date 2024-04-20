@@ -64,7 +64,7 @@ export async function POST(req: Request) {
 
     // create a new user in database
     const mongoUser = await createUser({
-      authId: id,
+      userId: id,
       name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
       username: username || `${parts[0]}-${parts[1].split(".")[0]}`,
       email: email_addresses[0].email_address,
@@ -82,7 +82,7 @@ export async function POST(req: Request) {
 
     // create a new user in database
     const mongoUser = await updateUser({
-      authId: id,
+      userId: id,
       updateData: {
         name: `${first_name}${last_name ? ` ${last_name}` : ""}`,
         username: username!,
@@ -99,7 +99,7 @@ export async function POST(req: Request) {
     const { id } = evt.data;
 
     const deletedUser = await deleteUser({
-      authId: id!,
+      userId: id!,
     });
 
     return NextResponse.json({ message: "User deleted", user: deletedUser });

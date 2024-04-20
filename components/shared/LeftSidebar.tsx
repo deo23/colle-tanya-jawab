@@ -61,7 +61,7 @@ const LeftSidebar = () => {
 
       <SignedOut>
         <div className="flex flex-col gap-3">
-          <Link href="/sign-in">
+          {/* <Link href="/sign-in">
             <Button className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
               <Image
                 src="/assets/icons/account.svg"
@@ -87,7 +87,7 @@ const LeftSidebar = () => {
               />
               <span className="max-lg:hidden">Sign Up</span>
             </Button>
-          </Link>
+          </Link> */}
         </div>
       </SignedOut>
     </section>

@@ -8,13 +8,17 @@ import { getUserById } from "@/lib/actions/user.action";
 import type { ParamsProps } from "@/types";
 import type { Metadata } from "next";
 
+import { currentProfile } from "@/lib/fetchUserData";
+
 export const metadata: Metadata = {
   title: "Edit Profile — DevOverflow",
 };
 
 const Page = async ({ params }: ParamsProps) => {
   // const { userId } = auth();
-  const userId = "65dfee47d87246ca81ba274e";
+  //const userId = "65ebb3d12f7d3011af8cb203";
+  const user = await currentProfile();
+  const userId = user._id.toString();
 
   if (!userId) return null;
 
@@ -25,7 +29,7 @@ const Page = async ({ params }: ParamsProps) => {
     <>
       <h1 className="h1-bold text-dark100_light900">Edit Profile</h1>
       <div className="mt-9">
-        <Profile authId={userId} user={JSON.stringify(mongoUser)} />
+        <Profile userId={userId} user={JSON.stringify(mongoUser)} />
       </div>
     </>
   );

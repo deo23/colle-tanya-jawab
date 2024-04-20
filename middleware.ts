@@ -15,6 +15,7 @@ const middleware = authMiddleware({
     "/community",
     "/jobs",
     "/ask-question",
+    "/edit-answer/:id",
     "/api/getQuestionById",
     "/api/answers",
     "/api/answers/getAnswer",
@@ -29,6 +30,7 @@ const middleware = authMiddleware({
     "/api/auth/callback",
     "/api/auth/callback/google",
     "/api/auth/error",
+    "/onboarding"
   ],
   ignoredRoutes: [
     "/api/webhook/clerk",

@@ -28,7 +28,7 @@ export async function GET(req: any) {
 
     const answer = await Answer.findById(answerId).populate(
       "author",
-      "_id authId name picture"
+      "_id userId name picture"
     );
 
     if (!answer) {
