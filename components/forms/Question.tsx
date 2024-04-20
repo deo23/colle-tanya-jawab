@@ -158,37 +158,27 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-full flex-col"
       >
+          <FormField control={form.control} name="anonymous"
+            render={({ field }) => (
               <div className="flex justify-end">
                 <div className="mt-10 flex">
-                  <Tabs defaultValue="top-posts" className="flex-1 rounded-sm">
+                  <Tabs defaultValue={field.value ? "true" : "false"} className="flex-1 rounded-sm">
                     <TabsList className="background-light800_dark400 min-h-[42px] p-1 pt-2 rounded-sm">
-                      <TabsTrigger value="top-posts" className="tab pl-5 pr-5 pt-1 pb-1" style={{fontSize: '0.85rem'}}>
+                      <TabsTrigger value="false" className="tab pl-5 pr-5 pt-1 pb-1" style={{ fontSize: '0.85rem' }} onClick={() => field.onChange(false)}>
                         My account
-                      </TabsTrigger> 
-                      <TabsTrigger value="answers" className="tab pl-5 pr-5 pt-1 pb-1"  style={{fontSize: '0.85rem'}}>
+                      </TabsTrigger>
+                      <TabsTrigger value="true" className="tab pl-5 pr-5 pt-1 pb-1" style={{ fontSize: '0.85rem' }} onClick={() => field.onChange(true)}>
                         Anonim
                       </TabsTrigger>
                     </TabsList>
-                    <TabsContent
-                      value="top-posts"
-                      className="mt-5 flex w-full flex-col gap-6"
-                    >
-                      {/* <QuestionsTab
-                        searchParams={searchParams}
-                        userId={userInfo.user._id}
-                        clerkId={clerkId}
-                      /> */}
-                    </TabsContent>
-                    <TabsContent value="answers" className="flex w-full flex-col gap-6">
-                      {/* <AnswersTab
-                        searchParams={searchParams}
-                        userId={userInfo.user._id}
-                        clerkId={clerkId}
-                      /> */}
-                    </TabsContent>
+                    <TabsContent value="top-posts" className="mt-5 flex w-full flex-col gap-6"></TabsContent>
+                    <TabsContent value="answers" className="flex w-full flex-col gap-6"> </TabsContent>
                   </Tabs>
                 </div>
               </div>
+            )}
+          />
+
               
         <FormField
           control={form.control}
@@ -213,7 +203,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
           name="anonymous"
           render={({ field }) => (
@@ -233,7 +223,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
               <FormMessage className="text-red-500" />
             </FormItem>
           )}
-        />
+        /> */}
 
 
 

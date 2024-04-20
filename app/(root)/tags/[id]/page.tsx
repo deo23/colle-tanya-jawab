@@ -10,7 +10,6 @@ import { getTagById, getQuestionsByTagId } from "@/lib/actions/tag.action";
 import type { URLProps } from "@/types";
 import type { Metadata } from "next";
 import { currentProfile } from "@/lib/fetchUserData";
-import QuestionCard from "@/components/cards/QuestionCard";
 
 
 export async function generateMetadata({

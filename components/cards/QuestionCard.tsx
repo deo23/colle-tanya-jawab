@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { SignedIn } from "@clerk/nextjs";
-
 import RenderTag from "@/components/shared/RenderTag";
 import Metric from "@/components/shared/Metric";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
@@ -21,6 +20,7 @@ interface QuestionProps {
   upvotes: string[];
   views: number;
   answers: Array<object>;
+  anonymous: Boolean; 
   createdAt: Date;
   userId?: string | null;
 }
@@ -33,6 +33,7 @@ const QuestionCard = ({
   upvotes,
   views,
   answers,
+  anonymous,
   createdAt,
   userId,
 }: QuestionProps) => {
@@ -65,17 +66,36 @@ const QuestionCard = ({
         ))}
       </div>
 
-      <div className="flex-between mt-6 w-full flex-wrap gap-3">
-        <Metric
-          imgUrl={author.picture}
-          alt="user"
-          value={author.name}
-          title={` • asked ${getTimestamp(createdAt)}`}
-          href={`/profile/${author._id}`}
-          isAuthor
-          textStyles="body-medium text-dark400_light700"
-        />
+      <div className="flex flex-wrap gap-3 mt-6 w-full justify-between">
+        {!anonymous && (
+          <div className="flex items-center gap-3">
+            <Metric
+              imgUrl={author.picture}
+              alt="user"
+              value={author.name}
+              title={` • asked ${getTimestamp(createdAt)}`}
+              href={`/profile/${author._id}`}
+              isAuthor
+              textStyles="body-medium text-dark400_light700"
+            />
+          </div>
+        )}
 
+        {anonymous && (
+          <div className="flex items-center gap-3">
+            <Metric
+              imgUrl= "/assets/images/anonymous.png"
+              alt="user"
+              value= "Anonymous"
+              title={` • asked ${getTimestamp(createdAt)}`}
+              href={`/profile/${author._id}`}
+              isAuthor
+              textStyles="body-medium text-dark400_light700"
+            />
+          </div>
+        )}
+
+        {/* Uncommented Metric */}
         <div className="flex items-center gap-3 max-sm:flex-wrap max-sm:justify-start">
           <Metric
             imgUrl="/assets/icons/like.svg"
@@ -99,7 +119,7 @@ const QuestionCard = ({
             textStyles="small-medium text-dark400_light800"
           />
         </div>
-      </div>
+      </div>  
     </div>
   );
 };

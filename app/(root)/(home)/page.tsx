@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
-import SearchInput from "@/components/shared/search/Search";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
 import HomeFilters from "@/components/shared/Filters";
 import QuestionCard from "@/components/cards/QuestionCard";
-import { useState } from "react";
 
 import {
   getQuestions,
@@ -19,7 +17,6 @@ import { HomePageFilters } from "@/constants/filters";
 import type { SearchParamsProps } from "@/types";
 import type { Metadata } from "next";
 import { currentProfile } from "@/lib/fetchUserData";
-
 
 export const metadata: Metadata = {
   title: "Home — DevOverflow",
@@ -56,29 +53,6 @@ export default async function Home({ searchParams }: SearchParamsProps) {
     });
   }
 
-  // const [searchInput, setSearchInput] = useState('');
-
-  // const handleSearch = () => {
-  //   // Mengubah nilai input pencarian ke dalam format yang diinginkan untuk parameter API
-  //   const formattedSearchQuery = searchInput.replace(/#/g, '%23').replace(/\s/g, '%20');
-
-  //   // Memanggil API dengan parameter yang telah diformat
-  //   fetch(`http://localhost:3001/api/question?q=${formattedSearchQuery}`)
-  //       .then(response => {
-  //           if (!response.ok) {
-  //               throw new Error('Network response was not ok');
-  //           }
-  //           return response.json();
-  //       })
-  //       .then(data => {
-  //           // Lakukan sesuatu dengan data yang diperoleh dari API (misalnya, tampilkan hasil di UI)
-  //           console.log(data);
-  //       })
-  //       .catch(error => {
-  //           console.error('There has been a problem with your fetch operation:', error);
-  //       });
-  // };
-
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -91,10 +65,20 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         </Link>
       </div>
 
-      <div className="mt-11 w-full">
-        <div className="flex items-center justify-between max-sm:flex-col max-sm:items-start">
-          <SearchInput/>
-        </div>
+      <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
+        <LocalSearchbar
+          route="/"
+          iconPosition="left"
+          imgSrc="/assets/icons/search.svg"
+          placeholder="Search for questions"
+          otherClasses="flex-1"
+        />
+
+        <Filter
+          filters={HomePageFilters}
+          otherClasses="min-h-[56px] sm:min-w-[170px]"
+          containerClasses="hidden max-md:flex"
+        />
       </div>
 
       <HomeFilters filters={HomePageFilters} />
@@ -112,6 +96,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
               upvotes={question.upvotes}
               views={question.views}
               answers={question.answers}
+              anonymous={question.anonymous}
               createdAt={question.createdAt}
             />
           ))

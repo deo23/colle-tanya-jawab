@@ -1,27 +1,26 @@
-"use client";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 const SearchInput = () => {
-  const [searchInput, setSearchInput] = useState('');
-  // const router = useRouter();
+  const [searchInput, setSearchInput] = useState("");
+  const [tagInput, setTagInput] = useState("");
+  const router = useRouter();
 
-  const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formattedSearchQuery = searchInput.replace(/#/g, '%23').replace(/\s/g, '%20');
-    try {
-      const response = await fetch(`http://localhost:3001/api/question?q=${formattedSearchQuery}`);
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-      } else {
-        throw new Error('Network response was not ok.');
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
+  
+    if (!searchInput.trim()) return;
+  
+    let query = `?q=${encodeURIComponent(searchInput.trim())}`;
+  
+    if (tagInput.trim()) {
+      const tags = tagInput.trim().split(/\s+/).map(tag => `#${tag}`);
+      query += encodeURIComponent(tags.join(' '));
     }
+  
+    router.push(`/search${query}`);
   };
+  
 
   return (
     <form onSubmit={handleSearch} className="flex justify-center w-full">
@@ -32,9 +31,16 @@ const SearchInput = () => {
         placeholder="Search..."
         className="border border-gray-300 px-4 py-2 rounded-lg mr-2 w-full"
       />
-      <Button type="submit" className="primary-gradient min-h-[50px] px-4 py-2 !text-light-900">
+      <input
+        type="text"
+        value={tagInput}
+        onChange={(e) => setTagInput(e.target.value)}
+        placeholder="Tag..."
+        className="border border-gray-300 px-4 py-2 rounded-lg mr-2 w-full"
+      />
+      <button type="submit" className="primary-gradient min-h-[50px] px-4 py-2 !text-light-900">
         Search
-      </Button>
+      </button>
     </form>
   );
 };
