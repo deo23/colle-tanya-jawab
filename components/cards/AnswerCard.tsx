@@ -33,9 +33,6 @@ const AnswerCard = ({
   createdAt,
 }: Props) => {
   const showActionButtons = userId && userId === author.userId;
-  console.log("🚀 ~ author.userId:", author.userId)
-  console.log("🚀 ~ userId:", userId)
-  console.log("🚀 ~ showActionButtons:", showActionButtons)
 
   return (
     <Link
@@ -65,7 +62,6 @@ const AnswerCard = ({
           alt="user avatar"
           value={author.name}
           title={` • asked ${getTimestamp(createdAt)}`}
-          href={`/profile/${author.userId}`}
           textStyles="body-medium text-dark400_light700"
           isAuthor
         />
