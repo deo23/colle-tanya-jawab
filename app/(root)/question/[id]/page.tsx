@@ -56,9 +56,10 @@ const Page = async ({ params, searchParams }: URLProps) => {
     <>
       <div className="flex-start w-full flex-col">
         <div className="flex w-full flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
+        {!result.anonymous && (
           <Link
             href={`/profile/${result.author.userId}`}
-            className="flex items-center justify-start gap-1"
+            className="flex items-center justify-start gap-1 mb-8"
           >
             <Image
               src={result.author.picture}
@@ -71,6 +72,24 @@ const Page = async ({ params, searchParams }: URLProps) => {
               {result.author.name}
             </p>
           </Link>
+        )}
+        {result.anonymous && (
+          <Link
+          href={``}
+          className="flex items-center justify-start gap-1 mb-8"
+        >
+            <Image
+              src="/assets/images/anonymous.png"
+              alt="anonymous"
+              className="rounded-full"
+              width={22}
+              height={22}
+            />
+            <p className="paragraph-semibold text-dark300_light700">
+              Anonymous
+            </p>
+          </Link>
+        )}
           <div className="flex justify-end">
             <Votes
               type="Question"

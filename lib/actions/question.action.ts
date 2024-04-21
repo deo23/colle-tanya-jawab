@@ -27,13 +27,14 @@ export async function createQuestion(params: CreateQuestionParams) {
   try {
     connectToDatabase();
 
-    const { title, content, tags, author, path } = params;
+    const { title, content, tags, author, anonymous, path } = params;
 
     // create new question
     const question = await Question.create({
       title,
       content,
       author,
+      anonymous
     });
 
     const tagDocuments = [];

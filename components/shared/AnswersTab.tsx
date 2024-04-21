@@ -9,7 +9,7 @@ import type { SearchParamsProps } from "@/types";
 interface Props extends SearchParamsProps, UserId {
   userId?: string | null;
 }
-const AnswersTab = async ({ searchParams, userId, userId }: Props) => {
+const AnswersTab = async ({ searchParams, userId }: Props) => {
   const result = await getUserAnswers({
     userId,
     page: searchParams.page ? +searchParams.page : 1,
