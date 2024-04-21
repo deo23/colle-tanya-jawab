@@ -1,4 +1,4 @@
-# Project 3 - Tanya Jawab
+# Collaborative Learning - Tanya Jawab
 
 ## Setup Instructions
 
