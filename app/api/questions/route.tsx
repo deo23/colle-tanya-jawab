@@ -11,9 +11,17 @@ export async function GET(req: any) {
 
     const url = new URL(req.url);
     const searchParams = url.searchParams;
+    //const authorId = searchParams.get("authorId");
+    const authorEmail = searchParams.get("email");
 
-    const authorId = searchParams.get("authorId");
+    // Retrieve the user document based on the provided email
+    const user = await User.findOne({ email: authorEmail });
 
+    if (!user) {
+      return new Response("User not found", { status: 404 });
+    }
+    const authorId = user.userId;
+    
     const question = await Question.find({ author: authorId })
       .populate({ path: "tags", model: Tag, select: "_id name" })
       .populate({
