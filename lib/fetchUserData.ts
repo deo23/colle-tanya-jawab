@@ -4,11 +4,12 @@ import axios from "axios";
 import User from "@/database/user.model";
 import { createUser } from "./actions/user.action";
 type Mahasiswa = {
-  id_mhs: number;
+  id_user: number;
   nama: string;
   username: string;
   email: string;
   password: string;
+  role: string;
   tanggal_lahir: Date;
   location: string;
   about: string;
@@ -54,6 +55,7 @@ export const currentProfile = async () => {
       email: userData.email,
       password: userData.password,
       bio: userData.about,
+      role: userData.role,
       picture: userData.profileUrl,
       location: userData.location,
       portfolioWebsite: "https://johndoe.portfolio.com",
