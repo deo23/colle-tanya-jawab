@@ -71,6 +71,7 @@ const Answer = ({
           content: values.answer,
           author: JSON.parse(authorId),
           question: JSON.parse(questionId),
+          approved: false,
           path: pathname,
         });
       }

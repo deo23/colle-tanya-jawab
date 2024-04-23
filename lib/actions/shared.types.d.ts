@@ -117,6 +117,7 @@ export interface CreateQuestionParams extends Path, Content {
   tags: string[];
   author: Schema.Types.ObjectId | IUser;
   anonymous: boolean;
+  approved: boolean;
 }
 
 export interface GetQuestionByIdParams extends QuestionId {}
@@ -139,6 +140,7 @@ export interface EditQuestionParams extends QuestionId, Path, Content {
 export interface CreateAnswerParams extends Path, Content {
   author: string;
   question: string;
+  approved: boolean;
 }
 
 export interface GetAnswersParams

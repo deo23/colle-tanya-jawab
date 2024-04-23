@@ -75,7 +75,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
             questionId: parsedQuestionDetails._id,
             title,
             content: explanation,
-            anonymous, // Set anonymous value to "CONTOH"
+            anonymous,
             path: pathname,
           });
           router.push(`/question/${parsedQuestionDetails._id}`);
@@ -85,7 +85,8 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
             content: explanation,
             tags,
             author: JSON.parse(mongoUserId),
-            anonymous, // Set anonymous value to "CONTOH"
+            anonymous,
+            approved:false,
             path: pathname,
             
           });

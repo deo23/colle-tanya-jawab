@@ -23,12 +23,13 @@ export async function createAnswer(params: CreateAnswerParams) {
   try {
     connectToDatabase();
 
-    const { content, author, question, path } = params;
+    const { content, author, question, approved, path } = params;
 
     const newAnswer = await Answer.create({
       content,
       author,
       question,
+      approved,
       path,
     });
 
