@@ -64,7 +64,7 @@ body {
 }
 
 .active-theme {
-  filter: invert(53%) sepia(98%) saturate(3332%) hue-rotate(0deg)
+  filter: (53%) sepia(98%) saturate(3332%) hue-rotate(0deg)
     brightness(104%) contrast(106%) !important;
 }
 
@@ -163,4 +163,14 @@ code {
 .no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+/*Left Sidebar */
+.primary-leftsidebar {
+  background: #170206 ;
+}
+
+/*Left Sidebar */
+.primary-logo {
+  background: #170206 ;
 }
