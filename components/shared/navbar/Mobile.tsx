@@ -75,11 +75,11 @@ const Mobile = () => {
             src="/assets/images/site-logo.svg"
             width={23}
             height={23}
-            alt="DevOverflow"
+            alt="Colle-Tanya Jawab"
           />
 
           <p className="h2-bold text-dark100_light900 font-spaceGrotesk">
-            Colle 
+            Colle-Tanya Jawab
           </p>
         </Link>
         <div>
