@@ -26,3 +26,36 @@ export async function POST(request: any) {
     throw error;
   }
 }
+
+
+export async function GET(req: any) {
+  try {
+    connectToDatabase();
+
+    const url = new URL(req.url);
+    const searchParams = url.searchParams;
+    const userEmail = searchParams.get("email");
+
+    // Retrieve the user document based on the provided email
+    const user = await User.findOne({ email: userEmail });
+
+    if (!user) {
+      return new Response("User not found", { status: 404 });
+    }
+
+    // Return user's name, email, and reputation
+    const userData = {
+      name: user.name,
+      email: user.email,
+      reputation: user.reputation
+    };
+
+    // Return the user data within a valid response
+    return new Response(JSON.stringify(userData), {
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
