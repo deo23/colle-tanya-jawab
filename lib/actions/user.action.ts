@@ -162,16 +162,21 @@ export async function getUserInfo(params: GetUserByIdParams) {
       },
     ]);
 
+    // Calculate total upvotes from both questions and answers
+    const totalQuestionUpvotes = questionUpvotes ? questionUpvotes.totalUpvotes : 0;
+    const totalAnswerUpvotes = answerUpvotes ? answerUpvotes.totalUpvotes : 0;
+    const totalUpvotes = totalQuestionUpvotes + totalAnswerUpvotes;
+
     const criteria = [
       { type: "QUESTION_COUNT" as BadgeCriteriaType, count: totalQuestions },
       { type: "ANSWER_COUNT" as BadgeCriteriaType, count: totalAnswers },
       {
         type: "QUESTION_UPVOTES" as BadgeCriteriaType,
-        count: questionUpvotes?.totalUpvotes || 0,
+        count: totalQuestionUpvotes,
       },
       {
         type: "ANSWER_UPVOTES" as BadgeCriteriaType,
-        count: answerUpvotes?.totalUpvotes || 0,
+        count: totalAnswerUpvotes,
       },
       {
         type: "TOTAL_VIEWS" as BadgeCriteriaType,
@@ -179,20 +184,21 @@ export async function getUserInfo(params: GetUserByIdParams) {
       },
     ];
 
-    const badgeCounts = assignBadges({ criteria });
+    
 
     return {
       user,
       totalQuestions,
       totalAnswers,
-      badgeCounts,
       reputation: user.reputation,
+      totalUpvotes: totalUpvotes,
     };
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
+
 
 export async function getAllUsers(params: GetAllUsersParams) {
   try {
