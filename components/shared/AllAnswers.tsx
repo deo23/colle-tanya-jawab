@@ -55,10 +55,10 @@ const AllAnswers = async ({
                     
           const showActionButtons = JSON.stringify(userId) === JSON.stringify(answer.author._id);
           console.log("🚀 ~ {result.answers.map ~ answer.author._id:", answer.author._id)
-          const myQuestion = JSON.stringify(userId) === userId;
-
-          
+          const myQuestion = JSON.stringify(userId) === userId;          
           const notMyAnswer = JSON.stringify(userId) !== JSON.stringify(answer.author._id);
+          const approved = true !== (answer.approved);          
+
 
           return (
             <article key={answer._id} className="light-border border-b py-10">
@@ -116,10 +116,10 @@ const AllAnswers = async ({
                     itemId={JSON.stringify(answer._id)}
                   />
                 )}
-                {notMyAnswer && (
-                  <ApprovedAction answerId={answer._id} userId={userId} /> // Replace the placeholder button with the ApprovedAction component
+
+                {notMyAnswer && approved &&(
+                  <ApprovedAction questionId={questionId} answerId={answer._id} userId={userId} /> // Replace the placeholder button with the ApprovedAction component
                 )}
-                
 
               {/* </SignedIn> */}
             </article>

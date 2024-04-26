@@ -161,10 +161,12 @@ export interface EditAnswerParams extends Path, AnswerId, Content {
 }
 
 export interface ApprovedAnswerParams extends AnswerId, Path {}
+export interface ApprovedQuestionsParams extends QuestionId, Path {}
 
 /**
  * Interfaces for interaction actions
  */
+
 export interface ViewQuestionParams extends UserId, QuestionId {}
 
 /**

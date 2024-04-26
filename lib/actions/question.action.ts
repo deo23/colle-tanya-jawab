@@ -14,6 +14,7 @@ import Interaction from "@/database/interaction.model";
 import { connectToDatabase } from "@/lib/mongoose";
 
 import type {
+  ApprovedQuestionsParams,
   CreateQuestionParams,
   DeleteQuestionParams,
   EditQuestionParams,
@@ -408,3 +409,34 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
     throw error;
   }
 }
+
+// Di level server (misalnya, dalam file actions/question.action.js)
+
+export async function markQuestionAsApproved(params: ApprovedQuestionsParams) {
+  try {
+    connectToDatabase();
+
+    const { questionId, path } = params;
+
+    const question = await Question.findByIdAndUpdate(
+      questionId,
+      { approved: true }, // Mengubah status persetujuan menjadi true
+      { new: true }
+    );
+
+    if (!question) {
+      throw new Error("Question not found / Mark as approved failed");
+    }
+
+    // Increment the author's reputation for getting their question approved
+    await User.findByIdAndUpdate(question.author, {
+      $inc: { reputation: 5 } // Assuming +5 reputation for having a question approved
+    });
+
+    revalidatePath(path); // Revalidate the path after marking the question as approved
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
