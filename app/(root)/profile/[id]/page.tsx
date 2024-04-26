@@ -9,6 +9,7 @@ import ProfileLink from "@/components/shared/ProfileLink";
 import Stats from "@/components/shared/Stats";
 import AnswersTab from "@/components/shared/AnswersTab";
 import QuestionsTab from "@/components/shared/QuestionsTab";
+import { currentProfile } from "@/lib/fetchUserData";
 
 import { getUserInfo, getUserById } from "@/lib/actions/user.action";
 import { getFormattedJoinedDate } from "@/lib/utils";
@@ -28,7 +29,9 @@ export async function generateMetadata({
 
 const Page = async ({ params, searchParams }: URLProps) => {
   // const { userId: userId } = auth();
-  const userId = "65ebb3d12f7d3011af8cb203"
+  // const userId = "65ebb3d12f7d3011af8cb203"
+  const user = await currentProfile();
+  const userId = user._id.toString();
   const userInfo = await getUserInfo({ userId: params.id });
 
   return (

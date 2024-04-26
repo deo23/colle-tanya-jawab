@@ -97,6 +97,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
               views={question.views}
               answers={question.answers}
               anonymous={question.anonymous}
+              approved={question.approved}
               createdAt={question.createdAt}
             />
           ))

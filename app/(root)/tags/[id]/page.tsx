@@ -63,6 +63,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
               views={question.views}
               answers={question.answers}
               anonymous={question.anonymous}
+              approved={question.approved}
               createdAt={question.createdAt}
             />
           ))

@@ -69,7 +69,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
               height={22}
             />
             <p className="paragraph-semibold text-dark300_light700">
-              {result.author.name}
+              {`${result.author.name} \u2022 ${result.author.role}`}
             </p>
           </Link>
         )}
@@ -104,7 +104,17 @@ const Page = async ({ params, searchParams }: URLProps) => {
           </div>
         </div>
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
-          {result.title}
+          <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1 flex items-center">
+            <span className="ml-2">{result.title} </span>
+              {result.approved && (
+                <img
+                  src="/assets/images/approved.png"
+                  alt="Approved"
+                  width={25}
+                  height={25}
+                />
+              )}              
+          </h3>
         </h2>
       </div>
 
@@ -153,6 +163,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
 
       <AllAnswers
         questionId={result._id}
+        questionAuthor={result.author.name}
         userId={mongoUser._id}
         totalAnswers={result.answers.length}
         filter={searchParams?.filter}

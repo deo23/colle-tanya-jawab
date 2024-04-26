@@ -2,12 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { SignedIn } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 import Filter from "@/components/shared/Filter";
 import ParseHTML from "@/components/shared/ParseHTML";
 import Votes from "@/components/shared/Votes";
 import Pagination from "@/components/shared/Pagination";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
+// import { approveAnswer, approveQuestion } from "@/lib/actions/question.action";
 
 import { getAnswers } from "@/lib/actions/answer.action";
 import { getTimestamp } from "@/lib/utils";
@@ -23,12 +25,14 @@ import type {
 
 interface Props extends QuestionId, UserId, OptionalPage, OptionalFilter {
   totalAnswers: number;
+  questionAuthor: string;
 }
 
 const AllAnswers = async ({
   userId,
   questionId,
   totalAnswers,
+  questionAuthor,
   filter,
   page,
 }: Props) => {
@@ -39,15 +43,17 @@ const AllAnswers = async ({
   });
 
   return (
-    <div className="mt-11">
-      <div className="flex items-center justify-between">
+    <div className="mt-11" >
+      <div className="flex items-center justify-between"  >
         <h3 className="primary-text-gradient">{totalAnswers} Answers</h3>
         <Filter filters={AnswerFilters} />
       </div>
-      <div>
+      <div className="">
         {result.answers.map((answer: any) => {
-          const showActionButtons =
-            JSON.stringify(userId) === JSON.stringify(answer.author._id);
+                    
+          const showActionButtons = JSON.stringify(userId) === JSON.stringify(answer.author._id);
+          // const myQuestion = JSON.stringify(userId) === questionAuthor;
+          const notMyAnswer = JSON.stringify(userId) !== JSON.stringify(answer.author._id);
 
           return (
             <article key={answer._id} className="light-border border-b py-10">
@@ -74,6 +80,16 @@ const AllAnswers = async ({
                   </div>
                 </Link>
                 <div className="flex justify-end">
+                  <h3>
+                    {answer.approved && (
+                      <img
+                        src="/assets/images/approved.png"
+                        alt="Approved"
+                        width={20}
+                        height={20}
+                      />
+                    )}              
+                  </h3>
                   <Votes
                     type="Answer"
                     itemId={JSON.stringify(answer._id)}
@@ -84,6 +100,7 @@ const AllAnswers = async ({
                     hasdownVoted={answer.downvotes.includes(userId)}
                   />
                 </div>
+                
               </div>
               <ParseHTML data={answer.content} />
 
@@ -94,6 +111,12 @@ const AllAnswers = async ({
                     itemId={JSON.stringify(answer._id)}
                   />
                 )}
+                {notMyAnswer &&(
+                  <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
+                    Approve
+                  </Button>
+                )}
+
               {/* </SignedIn> */}
             </article>
           );
