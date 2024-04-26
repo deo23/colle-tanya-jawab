@@ -15,6 +15,8 @@ import { getAnswers } from "@/lib/actions/answer.action";
 import { getTimestamp } from "@/lib/utils";
 
 import { AnswerFilters } from "@/constants/filters";
+import { useState } from 'react';
+import ApprovedAction from "@/components/shared/ApproveAction"; // Import the ApprovedAction component
 
 import type {
   QuestionId,
@@ -52,7 +54,10 @@ const AllAnswers = async ({
         {result.answers.map((answer: any) => {
                     
           const showActionButtons = JSON.stringify(userId) === JSON.stringify(answer.author._id);
-          // const myQuestion = JSON.stringify(userId) === questionAuthor;
+          console.log("🚀 ~ {result.answers.map ~ answer.author._id:", answer.author._id)
+          const myQuestion = JSON.stringify(userId) === userId;
+
+          
           const notMyAnswer = JSON.stringify(userId) !== JSON.stringify(answer.author._id);
 
           return (
@@ -111,11 +116,10 @@ const AllAnswers = async ({
                     itemId={JSON.stringify(answer._id)}
                   />
                 )}
-                {notMyAnswer &&(
-                  <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
-                    Approve
-                  </Button>
+                {notMyAnswer && (
+                  <ApprovedAction answerId={answer._id} userId={userId} /> // Replace the placeholder button with the ApprovedAction component
                 )}
+                
 
               {/* </SignedIn> */}
             </article>

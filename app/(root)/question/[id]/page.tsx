@@ -21,6 +21,7 @@ import type { URLProps } from "@/types";
 import type { Metadata } from "next";
 
 import { currentProfile } from "@/lib/fetchUserData";
+import { get } from "http";
 
 export async function generateMetadata({
   params,
@@ -33,8 +34,6 @@ export async function generateMetadata({
 }
 
 const Page = async ({ params, searchParams }: URLProps) => {
-  // const { userId: userId } = auth();
-  //const userId = "65ebb3d12f7d3011af8cb203";
   const user = await currentProfile();
   const userId = user._id.toString();
 
@@ -47,6 +46,10 @@ const Page = async ({ params, searchParams }: URLProps) => {
   }
 
   const result = await getQuestionById({ questionId: params.id });
+  console.log("🚀 ~ Page ~ result - RESULT :", result)
+  const userData = await getUserById({ userId: result.author._id });
+  console.log("🚀 ~ Page ~ userData:", userData)
+
   if (!result) return null;
 
   const showActionButtons = userId && userId === result.author._id.toString();
@@ -69,7 +72,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
               height={22}
             />
             <p className="paragraph-semibold text-dark300_light700">
-              {`${result.author.name} \u2022 ${result.author.role}`}
+              {`${result.author.name} \u2022 ${userData.role}`}
             </p>
           </Link>
         )}
@@ -163,7 +166,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
 
       <AllAnswers
         questionId={result._id}
-        questionAuthor={result.author.name}
+        questionAuthor={result.author._id}
         userId={mongoUser._id}
         totalAnswers={result.answers.length}
         filter={searchParams?.filter}
