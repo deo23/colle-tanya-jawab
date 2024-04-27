@@ -3,6 +3,7 @@ import { connectToDatabase } from "./mongoose";
 import axios from "axios";
 import User from "@/database/user.model";
 import { createUser } from "./actions/user.action";
+import { redirect } from "next/navigation";
 
 type Mahasiswa = {
   id_user: number;
@@ -25,6 +26,7 @@ export function getUserToken() {
   const cookieStore = cookies();
   const token = cookieStore.get("user_token");
   if (!token) {
+    return redirect("http://localhost:3000/dashboard");
     return "";
   }
   return token.value;
