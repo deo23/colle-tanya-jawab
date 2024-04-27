@@ -49,3 +49,12 @@ Mongodb installed
 ### Step 5: Access Tanya Jawab
 - Access the Tanya Jawab project at [http://localhost:3001/](http://localhost:3001/).
 
+
+# Deployment
++ add ```.env```
++ replace ```localhost``` to ```VM_IP```
++ run ```sudo docker compose -f docker-compose-db.yml up -d```
++ run ```sudo docker compose```
+
+
+

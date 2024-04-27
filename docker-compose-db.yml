@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo:7.0.9-rc1-jammy
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: tanyajawab # Set the root username
+      MONGO_INITDB_ROOT_PASSWORD: tanyajawab # Set the root password
+    ports:
+      - "27017:36101" # Map container port 27017 to host port 27017
+    volumes:
+      - mongodb_data:/data/db # Mount a volume for MongoDB data
+volumes:
+  mongodb_data:
+    driver: local
