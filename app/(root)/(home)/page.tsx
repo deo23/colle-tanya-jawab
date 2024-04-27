@@ -19,7 +19,7 @@ import type { Metadata } from "next";
 import { currentProfile } from "@/lib/fetchUserData";
 
 export const metadata: Metadata = {
-  title: "Home — DevOverflow",
+  title: "Colle - Tanya Jawab",
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {

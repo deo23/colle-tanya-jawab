@@ -3,16 +3,16 @@ import Image from "next/image";
 
 import { SignedIn, UserButton } from "@clerk/nextjs";
 
-import Theme from "@/components/shared/navbar/Theme";
+// import Theme from "@/components/shared/navbar/Theme";
 import Mobile from "@/components/shared/navbar/Mobile";
 import GlobalSearch from "@/components/shared/search/GlobalSearch";
 
 const Navbar = () => {
   return (
-    <nav className="flex-between background-black fixed z-50 w-full gap-5 p-6 shadow-light-300 dark:shadow-none sm:px-12 mr-5">
-      <Link href="/" className="flex items-center gap-3">
+    <nav className="flex justify-between fixed top-0 z-50 w-full gap-5 p-6 sm:px-12 mr-10">
+      <Link href="/" className="flex items-center gap-3 pr-3 pr-4">
         <Image
-          src="/assets/images/LogoSideBar.png"
+          src="/assets/images/LogoOrange.png"
           width={35}
           height={35}
           alt="Colle Logo"
@@ -26,7 +26,7 @@ const Navbar = () => {
       <GlobalSearch />
 
       <div className="flex-between gap-5">
-        <Theme />
+        
         <SignedIn>
           <UserButton
             afterSignOutUrl="/"
