@@ -25,9 +25,9 @@ export const metadata: Metadata = {
 export default async function Home({ searchParams }: SearchParamsProps) {
 
   // const { userId: userId } = auth();
-  // const user = await currentProfile();
-  // const userId = user._id.toString();
-  const userId = "65f62faac47e266eaaaff298"
+  const user = await currentProfile();
+  const userId = user._id.toString();
+  // const userId = "65f62faac47e266eaaaff298"
 
 
   let result; 

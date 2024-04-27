@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 
 const Page = async () => {
   // const { userId } = auth();
-  // const user = await currentProfile();
-  // const userId = user._id.toString();
+  const user = await currentProfile();
+  const userId = user._id.toString();
 
-  // if (!userId) return null;
-  const userId = "65f62faac47e266eaaaff298"
+  if (!userId) return null;
+  // const userId = "65f62faac47e266eaaaff298"
   const mongoUser = await getUserById({ userId });
-  // if (!mongoUser?.onboarded) redirect("/onboarding");
+  if (!mongoUser?.onboarded) redirect("/onboarding");
 
   return (
     <div>
