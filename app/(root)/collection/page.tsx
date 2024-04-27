@@ -15,12 +15,12 @@ import type { Metadata } from "next";
 import { currentProfile } from "@/lib/fetchUserData";
 
 export const metadata: Metadata = {
-  title: "Collection — DevOverflow",
+  title: "Collection — Colle Tanya Jawab",
 };
 
 export default async function Collection({ searchParams }: SearchParamsProps) {
   // const { userId: userId } = auth();
-
+  // const userId = "65f62faac47e266eaaaff298"
   const user = await currentProfile();
   const userId = user._id.toString();
   if (!userId) return null;
@@ -67,6 +67,7 @@ export default async function Collection({ searchParams }: SearchParamsProps) {
               views={question.views}
               answers={question.answers}
               anonymous={question.anonymous}
+              approved={question.approved}
               createdAt={question.createdAt}
             />
           ))

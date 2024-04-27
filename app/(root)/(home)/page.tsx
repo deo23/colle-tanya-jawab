@@ -10,7 +10,6 @@ import { currentProfile } from "@/lib/fetchUserData";
 
 import {
   getQuestions,
-  getRecommendedQuestions,
 } from "@/lib/actions/question.action";
 
 import { HomePageFilters } from "@/constants/filters";
@@ -19,7 +18,7 @@ import type { SearchParamsProps } from "@/types";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Home — DevOverflow",
+  title: "Colle - Tanya Jawab",
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
@@ -33,9 +32,9 @@ export default async function Home({ searchParams }: SearchParamsProps) {
 
   if (searchParams?.filter === "recommended") {
     if (userId) {
-      result = await getRecommendedQuestions({
-        userId,
+      result = await getQuestions({
         searchQuery: searchParams.q,
+        filter: searchParams.filter,
         page: searchParams.page ? +searchParams.page : 1,
       });      
     } else {
@@ -73,10 +72,11 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           otherClasses="flex-1"
         />
 
+        {/* <Filter filters={QuestionFilters} /> */}
+
         <Filter
           filters={HomePageFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
-          containerClasses="hidden max-md:flex"
+        
         />
       </div>
 
@@ -96,6 +96,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
               views={question.views}
               answers={question.answers}
               anonymous={question.anonymous}
+              approved={question.approved}
               createdAt={question.createdAt}
             />
           ))

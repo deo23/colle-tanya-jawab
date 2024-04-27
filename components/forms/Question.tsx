@@ -9,8 +9,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
 
-
-
 import {
   Form,
   FormControl,
@@ -58,50 +56,47 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
       anonymous: parsedQuestionDetails?.anonymous || false, // Set anonymous value to "CONTOH"
     },
   });
-  
 
   async function onSubmit(values: z.infer<typeof QuestionValidation>) {
     setIsSubmitting(true);
-    
+
     try {
-        const { title, explanation, tags, anonymous } = values; // Destructure 'anonymous'
-        console.log("Submitting with values:", values); // Log all form values
+      const { title, explanation, tags, anonymous } = values; // Destructure 'anonymous'
+      console.log("Submitting with values:", values); // Log all form values
 
-        if (type === "Edit") {
-          await editQuestion({
-            questionId: parsedQuestionDetails._id,
-            title,
-            content: explanation,
-            anonymous,
-            path: pathname,
-          });
-          router.push(`/question/${parsedQuestionDetails._id}`);
-        } else {
-          await createQuestion({
-            title,
-            content: explanation,
-            tags,
-            author: JSON.parse(mongoUserId),
-            anonymous,
-            approved:false,
-            path: pathname,
-            
-          });
+      if (type === "Edit") {
+        await editQuestion({
+          questionId: parsedQuestionDetails._id,
+          title,
+          content: explanation,
+          anonymous,
+          path: pathname,
+        });
+        router.push(`/question/${parsedQuestionDetails._id}`);
+      } else {
+        await createQuestion({
+          title,
+          content: explanation,
+          tags,
+          author: JSON.parse(mongoUserId),
+          anonymous,
+          approved: false,
+          path: pathname,
+        });
 
-          // navigate to home page
-          router.push("/");
-        }
-
+        // navigate to home page
+        router.push("/");
+      }
     } catch (error) {
       toast({
         title: `Error ${type === "Edit" ? "editing" : "posting"} question ⚠️`,
         variant: "destructive",
       });
-  
+
       console.error(error);
     } finally {
       setIsSubmitting(false);
-  
+
       toast({
         title: `Question ${
           type === "Edit" ? "edited" : "posted"
@@ -110,13 +105,10 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
       });
     }
   }
-  
-  
-  
 
   const handleInputKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
-    field: any
+    field: any,
   ) => {
     if (e.key === "Enter" && field.name === "tags") {
       e.preventDefault();
@@ -146,7 +138,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
   const handleTagRemove = (tag: string, field: any) => {
     form.setValue(
       "tags",
-      field.value.filter((t: string) => t !== tag)
+      field.value.filter((t: string) => t !== tag),
     );
   };
 
@@ -156,33 +148,55 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-full flex-col"
       >
-          <FormField control={form.control} name="anonymous"
-            render={({ field }) => (
-              <div className="flex justify-end">
-                <div className="mt-10 flex">
-                  <Tabs defaultValue={field.value ? "true" : "false"} className="flex-1 rounded-sm">
-                    <TabsList className="background-light800_dark400 min-h-[42px] p-1 pt-2 rounded-sm">
-                      <TabsTrigger value="false" className="tab py-1 px-5" style={{ fontSize: '0.85rem' }} onClick={() => field.onChange(false)}>
-                        My account
-                      </TabsTrigger>
-                      <TabsTrigger value="true" className="tab py-1 px-5" style={{ fontSize: '0.85rem' }} onClick={() => field.onChange(true)}>
-                        Anonim
-                      </TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="top-posts" className="mt-5 flex w-full flex-col gap-6"></TabsContent>
-                    <TabsContent value="answers" className="flex w-full flex-col gap-6"> </TabsContent>
-                  </Tabs>
-                </div>
+        <FormField
+          control={form.control}
+          name="anonymous"
+          render={({ field }) => (
+            <div className="flex justify-end">
+              <div className="mt-10 flex">
+                <Tabs
+                  defaultValue={field.value ? "true" : "false"}
+                  className="flex-1 rounded-sm"
+                >
+                  <TabsList className="background-light800_dark400 min-h-[42px] rounded-sm p-1 pt-2">
+                    <TabsTrigger
+                      value="false"
+                      className="tab px-5 py-1"
+                      style={{ fontSize: "0.85rem" }}
+                      onClick={() => field.onChange(false)}
+                    >
+                      My account
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="true"
+                      className="tab px-5 py-1"
+                      style={{ fontSize: "0.85rem" }}
+                      onClick={() => field.onChange(true)}
+                    >
+                      Anonim
+                    </TabsTrigger>
+                  </TabsList>
+                  <TabsContent
+                    value="top-posts"
+                    className="mt-5 flex w-full flex-col gap-6"
+                  ></TabsContent>
+                  <TabsContent
+                    value="answers"
+                    className="flex w-full flex-col gap-6"
+                  >
+                    {" "}
+                  </TabsContent>
+                </Tabs>
               </div>
-            )}
-          />
+            </div>
+          )}
+        />
 
-              
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
-            <FormItem className="w-full flex flex-col mt-0">
+            <FormItem className="mt-0 flex w-full flex-col">
               <FormLabel className="paragraph-semibold text-dark400_light800">
                 Question Title <span className="text-primary-500">*</span>
               </FormLabel>
@@ -222,10 +236,6 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
             </FormItem>
           )}
         /> */}
-
-
-
-
 
         <FormField
           control={form.control}
@@ -286,7 +296,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           control={form.control}
           name="tags"
           render={({ field }) => (
-            <FormItem className="w-full flex flex-col mt-3">
+            <FormItem className="mt-3 flex w-full flex-col">
               <FormLabel className="paragraph-semibold text-dark400_light800 mt-5">
                 Tags <span className="text-primary-500">*</span>
               </FormLabel>
@@ -337,7 +347,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         />
         <Button
           type="submit"
-          className="w-fit primary-gradient !text-light-900 mt-10"
+          className="primary-gradient mt-10 w-fit !text-light-900"
           disabled={isSubmitting}
         >
           {isSubmitting ? (

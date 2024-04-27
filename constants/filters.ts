@@ -33,6 +33,7 @@ export const HomePageFilters: FilterProps[] = [
   { name: "Recommended", value: "recommended" },
   { name: "Frequent", value: "frequent" },
   { name: "Unanswered", value: "unanswered" },
+  { name: "Most Voted", value: "most_voted" }
 ];
 
 export const JobPageFilters: FilterProps[] = [

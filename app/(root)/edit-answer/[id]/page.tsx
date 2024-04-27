@@ -25,7 +25,8 @@ const Page = async ({ params }: ParamsProps) => {
 
   const result = await getAnswerById({ answerId: params.id });
 
-  if (userId !== result.author.userId) redirect("/");
+  // if (userId !== result.author.userId) redirect("/");
+  
 
   return (
     <>
