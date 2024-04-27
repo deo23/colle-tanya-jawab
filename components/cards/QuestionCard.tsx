@@ -4,6 +4,7 @@ import { SignedIn } from "@clerk/nextjs";
 import RenderTag from "@/components/shared/RenderTag";
 import Metric from "@/components/shared/Metric";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
+import { currentProfile } from "@/lib/fetchUserData";
 
 import { getFormattedNumber, getTimestamp } from "@/lib/utils";
 
@@ -41,6 +42,7 @@ const QuestionCard = ({
   userId,
 }: QuestionProps) => {
   const showActionButtons = userId && userId === author.userId;
+  
 
   return (
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11 shadow-2xl" style={{ backgroundColor: 'rgba(238,238,238,255)' }} >
@@ -50,16 +52,20 @@ const QuestionCard = ({
             {getTimestamp(createdAt)}
           </span>
           <Link href={`/question/${_id}`}>
-            <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1 flex items-center">
-            <span className="ml-2">{title}</span>
-              {approved && (
-                <img
-                  src="/assets/images/approved.png"
-                  alt="Approved"
-                  width={23}
-                  height={23}
-                />
-              )}              
+            <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex items-center">
+            <div className="flex items-center ml-auto">
+            {approved && (
+              <img
+                src="/assets/images/approved.png"
+                alt="Approved"
+                width={23}
+                height={23}
+                className="mr-2"
+              />
+            )}
+          </div>
+              {title}
+              {/* Tambahkan elemen div untuk mengelompokkan judul dan gambar */}
             </h3>
           </Link>
         </div>

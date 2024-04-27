@@ -13,6 +13,7 @@ import EditDeleteAction from "@/components/shared/EditDeleteAction";
 
 import { getAnswers } from "@/lib/actions/answer.action";
 import { getTimestamp } from "@/lib/utils";
+import { getQuestionById } from "@/lib/actions/question.action";
 
 import { AnswerFilters } from "@/constants/filters";
 import { useState } from 'react';
@@ -43,6 +44,7 @@ const AllAnswers = async ({
     sortBy: filter,
     page,
   });
+  const question = await getQuestionById({ questionId:questionId });
 
   return (
     <div className="mt-11" >
@@ -52,12 +54,12 @@ const AllAnswers = async ({
       </div>
       <div className="">
         {result.answers.map((answer: any) => {
-                    
           const showActionButtons = JSON.stringify(userId) === JSON.stringify(answer.author._id);
           console.log("🚀 ~ {result.answers.map ~ answer.author._id:", answer.author._id)
-          const myQuestion = JSON.stringify(userId) === userId;          
+          const myQuestion = JSON.stringify(userId) === question.author._id;          
           const notMyAnswer = JSON.stringify(userId) !== JSON.stringify(answer.author._id);
-          const approved = true !== (answer.approved);          
+          const approved = !(question.approved);
+
 
 
           return (
@@ -90,8 +92,8 @@ const AllAnswers = async ({
                       <img
                         src="/assets/images/approved.png"
                         alt="Approved"
-                        width={20}
-                        height={20}
+                        width={23}
+                        height={23}
                       />
                     )}              
                   </h3>
@@ -117,7 +119,7 @@ const AllAnswers = async ({
                   />
                 )}
 
-                {notMyAnswer && approved &&(
+                {approved && notMyAnswer && (
                   <ApprovedAction questionId={questionId} answerId={answer._id} userId={userId} /> // Replace the placeholder button with the ApprovedAction component
                 )}
 

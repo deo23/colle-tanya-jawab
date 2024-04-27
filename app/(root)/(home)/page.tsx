@@ -6,6 +6,7 @@ import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
 import HomeFilters from "@/components/shared/Filters";
 import QuestionCard from "@/components/cards/QuestionCard";
+import {QuestionFilters } from "@/constants/filters";
 
 import {
   getQuestions,
@@ -74,14 +75,16 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           otherClasses="flex-1"
         />
 
-        <Filter
+        <Filter filters={QuestionFilters} />
+
+        {/* <Filter
           filters={HomePageFilters}
           otherClasses="min-h-[56px] sm:min-w-[170px]"
           containerClasses="hidden max-md:flex"
-        />
+        /> */}
       </div>
 
-      <HomeFilters filters={HomePageFilters} />
+      {/* <HomeFilters filters={HomePageFilters} /> */}
 
       <div className="mt-10 flex w-full flex-col gap-6">
         {result.questions.length > 0 ? (
