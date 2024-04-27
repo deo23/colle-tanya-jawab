@@ -12,7 +12,7 @@ const Navbar = () => {
     <nav className="flex-between bg-black fixed z-50 w-full gap-5 p-6 mr-5 shadow-light-300 dark:shadow-none sm:px-12">
       <Link href="/" className="flex items-center gap-3">
         <Image
-          src="/assets/images/LogoSideBar.png"
+          src="/assets/images/LogoSidebar.png"
           width={35}
           height={35}
           alt="Colle Logo"
