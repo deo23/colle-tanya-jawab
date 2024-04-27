@@ -31,7 +31,7 @@ export function getUserToken() {
 }
 
 export const currentProfile = async () => {
-  const userToken = getUserToken();  // Updated to camelCase
+  const userToken = getUserToken(); // Updated to camelCase
   // Using Cookie and use ProfileId, but for now we will use the hardcoded profileId
   await connectToDatabase();
   console.log("token : ", userToken);
@@ -39,7 +39,7 @@ export const currentProfile = async () => {
   console.log("url : ", url);
   const config = {
     headers: {
-      Authorization: `Bearer ${userToken}`,  // Updated to camelCase
+      Authorization: `Bearer ${userToken}`, // Updated to camelCase
       Accept: "application/json",
     },
   };
@@ -72,7 +72,10 @@ export const currentProfile = async () => {
     if (createdProfile) {
       console.log("Dummy profile created:", createdProfile);
       // Update userId with the string representation of the _id field
-      await User.updateOne({ _id: createdProfile._id }, { $set: { userId: createdProfile._id.toString() } });
+      await User.updateOne(
+        { _id: createdProfile._id },
+        { $set: { userId: createdProfile._id.toString() } },
+      );
       console.log("userId updated:", createdProfile._id.toString());
     }
   } else {
