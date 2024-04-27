@@ -1,11 +1,11 @@
 import Link from "next/link";
 
-import { SignedIn } from "@clerk/nextjs";
 import RenderTag from "@/components/shared/RenderTag";
 import Metric from "@/components/shared/Metric";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
 
 import { getFormattedNumber, getTimestamp } from "@/lib/utils";
+import Image from "next/image";
 
 interface QuestionProps {
   _id: string;
@@ -14,13 +14,15 @@ interface QuestionProps {
   author: {
     _id: string;
     name: string;
+    role: string;
     picture: string;
     userId: string;
   };
   upvotes: string[];
   views: number;
   answers: Array<object>;
-  anonymous: Boolean; 
+  anonymous: Boolean;
+  approved: Boolean;
   createdAt: Date;
   userId?: string | null;
 }
@@ -34,29 +36,46 @@ const QuestionCard = ({
   views,
   answers,
   anonymous,
+  approved,
   createdAt,
   userId,
 }: QuestionProps) => {
   const showActionButtons = userId && userId === author.userId;
 
   return (
-    <div className="card-wrapper rounded-[10px] p-9 sm:px-11 shadow-2xl" style={{ backgroundColor: 'rgba(238,238,238,255)' }} >
+    <div
+      className="card-wrapper rounded-[10px] p-9 shadow-2xl sm:px-11"
+      style={{ backgroundColor: "rgba(238,238,238,255)" }}
+    >
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
           <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
             {getTimestamp(createdAt)}
           </span>
           <Link href={`/question/${_id}`}>
-            <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1">
+            <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex items-center">
+              <div className="ml-auto flex items-center">
+                {approved && (
+                  <div className="mr-2">
+                    <Image
+                      src="/assets/images/approved.png"
+                      alt="Approved"
+                      width={23}
+                      height={23}
+                    />
+                  </div>
+                )}
+              </div>
               {title}
+              {/* Tambahkan elemen div untuk mengelompokkan judul dan gambar */}
             </h3>
           </Link>
         </div>
 
         {/* <SignedIn> */}
-          {showActionButtons && (
-            <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
-          )}
+        {showActionButtons && (
+          <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
+        )}
         {/* </SignedIn> */}
       </div>
 
@@ -66,14 +85,14 @@ const QuestionCard = ({
         ))}
       </div>
 
-      <div className="flex flex-wrap gap-3 mt-6 w-full justify-between">
+      <div className="mt-6 flex w-full flex-wrap justify-between gap-3">
         {!anonymous && (
           <div className="flex items-center gap-3">
             <Metric
               imgUrl={author.picture}
               alt="user"
-              value={author.name}
-              title={` • asked ${getTimestamp(createdAt)}`}
+              value={`${author.name} \u2022 ${author.role}`}
+              title={` asked ${getTimestamp(createdAt)}`}
               href={`/profile/${author._id}`}
               isAuthor
               textStyles="body-medium text-dark400_light700"
@@ -84,9 +103,9 @@ const QuestionCard = ({
         {anonymous && (
           <div className="flex items-center gap-3">
             <Metric
-              imgUrl= "/assets/images/anonymous.png"
+              imgUrl="/assets/images/anonymous.png"
               alt="user"
-              value= "Anonymous"
+              value="Anonymous"
               title={` • asked ${getTimestamp(createdAt)}`}
               href={`/profile/${author._id}`}
               isAuthor
@@ -119,7 +138,7 @@ const QuestionCard = ({
             textStyles="small-medium text-dark400_light800"
           />
         </div>
-      </div>  
+      </div>
     </div>
   );
 };

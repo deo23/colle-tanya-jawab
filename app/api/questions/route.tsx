@@ -4,17 +4,17 @@ import User from "@/database/user.model";
 
 import { connectToDatabase } from "@/lib/mongoose";
 
-//Get Question based on author ID
+// Get Question based on author ID
 export async function GET(req: any) {
   try {
     connectToDatabase();
 
     const url = new URL(req.url);
     const searchParams = url.searchParams;
-    //const authorId = searchParams.get("authorId");
+
     const authorEmail = searchParams.get("email");
 
-    // Retrieve the user document based on the provided email
+
     const user = await User.findOne({ email: authorEmail });
 
     if (!user) {

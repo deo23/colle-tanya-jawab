@@ -9,16 +9,16 @@ import GlobalSearch from "@/components/shared/search/GlobalSearch";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between fixed top-0 z-50 w-full gap-5 p-6 sm:px-12 mr-10">
-      <Link href="/" className="flex items-center gap-3 pr-3 pr-4">
+    <nav className="flex-between fixed z-50 mr-5 w-full gap-5 bg-black p-6 shadow-light-300 dark:shadow-none sm:px-12">
+      <Link href="/" className="flex items-center gap-3">
         <Image
-          src="/assets/images/LogoOrange.png"
+          src="/assets/images/LogoSidebar.png"
           width={35}
           height={35}
           alt="Colle Logo"
         />
 
-        <p className="h2-bold font-spaceGrotesk text-white max-sm:hidden text-base">
+        <p className="h2-bold font-spaceGrotesk text-base text-white max-sm:hidden">
           Colle - Tanya Jawab
         </p>
       </Link>
@@ -26,7 +26,6 @@ const Navbar = () => {
       <GlobalSearch />
 
       <div className="flex-between gap-5">
-        
         <SignedIn>
           <UserButton
             afterSignOutUrl="/"

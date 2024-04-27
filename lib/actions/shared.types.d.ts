@@ -5,17 +5,9 @@ import { IUser } from "@/database/user.model";
 /**
  * Common interfaces used in actions
  */
-interface ClerkId {
-  clerkId: string;
-}
 
 interface userId{
   userId: string;
-
-}
-
-interface Picture{
-  picture: string;
 
 }
 
@@ -156,11 +148,17 @@ export interface AnswerVoteParams extends AnswerId, UserId, Path, Voting {}
 
 export interface DeleteAnswerParams extends Path, AnswerId {}
 
-export interface EditAnswerParams extends Path, AnswerId, Content {}
+export interface EditAnswerParams extends Path, AnswerId, Content {
+  approved?: boolean;
+}
+
+export interface ApprovedAnswerParams extends AnswerId, Path {}
+export interface ApprovedQuestionsParams extends QuestionId, Path {}
 
 /**
  * Interfaces for interaction actions
  */
+
 export interface ViewQuestionParams extends UserId, QuestionId {}
 
 /**

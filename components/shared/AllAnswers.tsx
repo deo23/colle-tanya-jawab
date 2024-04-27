@@ -1,18 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { SignedIn } from "@clerk/nextjs";
 
 import Filter from "@/components/shared/Filter";
 import ParseHTML from "@/components/shared/ParseHTML";
 import Votes from "@/components/shared/Votes";
 import Pagination from "@/components/shared/Pagination";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
+// import { approveAnswer, approveQuestion } from "@/lib/actions/question.action";
 
 import { getAnswers } from "@/lib/actions/answer.action";
 import { getTimestamp } from "@/lib/utils";
+import { getQuestionById } from "@/lib/actions/question.action";
 
 import { AnswerFilters } from "@/constants/filters";
+import ApprovedAction from "@/components/shared/ApproveAction"; // Import the ApprovedAction component
 
 import type {
   QuestionId,
@@ -23,12 +25,14 @@ import type {
 
 interface Props extends QuestionId, UserId, OptionalPage, OptionalFilter {
   totalAnswers: number;
+  questionAuthor: string;
 }
 
 const AllAnswers = async ({
   userId,
   questionId,
   totalAnswers,
+  questionAuthor,
   filter,
   page,
 }: Props) => {
@@ -37,17 +41,25 @@ const AllAnswers = async ({
     sortBy: filter,
     page,
   });
+  const question = await getQuestionById({ questionId });
 
   return (
-    <div className="mt-11">
-      <div className="flex items-center justify-between">
+    <div className="mt-11" >
+      <div className="flex items-center justify-between"  >
         <h3 className="primary-text-gradient">{totalAnswers} Answers</h3>
         <Filter filters={AnswerFilters} />
       </div>
-      <div>
+      <div className="">
         {result.answers.map((answer: any) => {
-          const showActionButtons =
-            JSON.stringify(userId) === JSON.stringify(answer.author._id);
+          const showActionButtons = userId === JSON.stringify(answer.author._id);
+          
+          console.log("🚀 ~ {result.answers.map ~ answer.author._id:", answer.author._id)
+          const myQuestion = userId.toString() === question.author._id.toString();
+          const notMyAnswer = JSON.stringify(userId) !== JSON.stringify(answer.author._id);
+          const approved = (question.approved);
+          console.log("🚀 ~ {result.answers.map ~ approved:", approved)
+
+
 
           return (
             <article key={answer._id} className="light-border border-b py-10">
@@ -74,6 +86,16 @@ const AllAnswers = async ({
                   </div>
                 </Link>
                 <div className="flex justify-end">
+                  <h3>
+                  {answer.approved && (
+                    <Image
+                      src="/assets/images/approved.png"
+                      alt="Approved"
+                      width={23}
+                      height={23}
+                    />
+                  )}         
+                  </h3>
                   <Votes
                     type="Answer"
                     itemId={JSON.stringify(answer._id)}
@@ -84,6 +106,7 @@ const AllAnswers = async ({
                     hasdownVoted={answer.downvotes.includes(userId)}
                   />
                 </div>
+                
               </div>
               <ParseHTML data={answer.content} />
 
@@ -94,6 +117,11 @@ const AllAnswers = async ({
                     itemId={JSON.stringify(answer._id)}
                   />
                 )}
+
+                {!approved && notMyAnswer && myQuestion && (
+                  <ApprovedAction questionId={questionId} answerId={answer._id} userId={userId} /> // Replace the placeholder button with the ApprovedAction component
+                )}
+
               {/* </SignedIn> */}
             </article>
           );

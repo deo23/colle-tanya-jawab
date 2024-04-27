@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
 import Answer from "@/database/answer.model";
@@ -91,7 +90,7 @@ export async function PATCH(req: any) {
   try {
     connectToDatabase();
 
-    const { answerId, content, path } = await req.json();
+    const { answerId, content } = await req.json();
 
     const answer = await Answer.findById(answerId);
 

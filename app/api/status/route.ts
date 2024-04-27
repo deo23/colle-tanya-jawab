@@ -6,13 +6,13 @@ export async function GET(req: NextRequest) {
     if (!userid) {
         return NextResponse.json({ "status": "none" });
     }
-    return NextResponse.json({ "status": "logged", "userid": userid });
+    return NextResponse.json({ "status": "logged",  userid });
 }
 export async function POST(req: NextRequest) {
     const body = await req.json();
     console.log(body);
     const cookieStore = cookies();
     cookieStore.delete("user_token");
-    cookieStore.set('user_token',body["user_token"])
-    return NextResponse.json({ "status": "logged", "token": body["user_token"]});
+    cookieStore.set('user_token', body.user_token);  // Use dot notation here
+    return NextResponse.json({ "status": "logged", "token": body.user_token });  // And here as well
 }

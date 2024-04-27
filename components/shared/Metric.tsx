@@ -9,7 +9,7 @@ interface MetricProps {
   href?: string;
   textStyles?: string;
   isAuthor?: boolean;
-  anonymous?: boolean;  
+  anonymous?: boolean;
 }
 
 const Metric = ({
@@ -41,9 +41,7 @@ const Metric = ({
           >
             {title}
             {anonymous && (
-              <span className="italic text-sm text-gray-600">
-                {anonymous}
-              </span>
+              <span className="text-sm italic text-gray-600">{anonymous}</span>
             )}
           </span>
         )}

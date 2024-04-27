@@ -1,5 +1,3 @@
-import { auth } from "@clerk/nextjs";
-
 import QuestionCard from "@/components/cards/QuestionCard";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
@@ -24,8 +22,6 @@ export async function generateMetadata({
 }
 
 const Page = async ({ params, searchParams }: URLProps) => {
-  // const { userId: userId } = auth();
-  //const userId = "65ebb3d12f7d3011af8cb203"
   const user = await currentProfile();
   const userId = user._id.toString();
   
@@ -63,6 +59,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
               views={question.views}
               answers={question.answers}
               anonymous={question.anonymous}
+              approved={question.approved}
               createdAt={question.createdAt}
             />
           ))

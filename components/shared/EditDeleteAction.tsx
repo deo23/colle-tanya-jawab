@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { deleteAnswer } from "@/lib/actions/answer.action";
 import { deleteQuestion } from "@/lib/actions/question.action";
+import Swal from "sweetalert2";
 
 interface Props {
   type: string;
@@ -18,20 +19,35 @@ const EditDeleteAction = ({ type, itemId }: Props) => {
     if (type === "Question") {
       router.push(`/question/edit/${JSON.parse(itemId)}`);
     } else if (type === "Answer") {
-      console.log("🚀 ~ handleEdit ~ JSON.parse(itemId):", JSON.parse(itemId))
+      console.log("🚀 ~ handleEdit ~ JSON.parse(itemId):", JSON.parse(itemId));
       router.push(`/edit-answer/${JSON.parse(itemId)}`);
     }
   };
 
   const handleDelete = async () => {
-    if (type === "Question") {
-      await deleteQuestion({
-        questionId: JSON.parse(itemId),
-        path: pathname,
-        isQuestionPath: pathname === `/question/${JSON.parse(itemId)}`,
-      });
-    } else if (type === "Answer") {
-      await deleteAnswer({ answerId: JSON.parse(itemId), path: pathname });
+    // Mark function as async
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (result.isConfirmed) {
+      if (type === "Question") {
+        await deleteQuestion({
+          questionId: JSON.parse(itemId),
+          path: pathname,
+          isQuestionPath: pathname === `/question/${JSON.parse(itemId)}`,
+        });
+      } else if (type === "Answer") {
+        await deleteAnswer({ answerId: JSON.parse(itemId), path: pathname });
+      }
+    } else {
+      console.log("User canceled the delete action");
     }
   };
 

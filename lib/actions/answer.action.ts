@@ -17,6 +17,7 @@ import type {
   EditAnswerParams,
   GetAnswerByIdParams,
   GetAnswersParams,
+  ApprovedAnswerParams
 } from "./shared.types";
 
 export async function createAnswer(params: CreateAnswerParams) {
@@ -269,3 +270,36 @@ export async function downvoteAnswer(params: AnswerVoteParams) {
     throw error;
   }
 }
+
+export async function markAnswerAsApproved(params: ApprovedAnswerParams) {
+  try {
+    connectToDatabase();
+
+    const { answerId, path } = params;
+
+    const answer = await Answer.findByIdAndUpdate(
+      answerId,
+      { approved: true },
+      { new: true }
+    );
+
+    if (!answer) {
+      throw new Error("Answer not found / Mark as approved failed");
+    }
+
+    // Increment the author's reputation for getting their answer approved
+    await User.findByIdAndUpdate(answer.author, {
+      $inc: { reputation: 5 } // Assuming +5 reputation for having an answer approved
+    });
+
+    revalidatePath(path); // Revalidate the path after marking the answer as approved
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+
+
+
+

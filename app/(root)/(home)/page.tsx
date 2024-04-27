@@ -6,17 +6,16 @@ import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
 import HomeFilters from "@/components/shared/Filters";
 import QuestionCard from "@/components/cards/QuestionCard";
+import { currentProfile } from "@/lib/fetchUserData";
 
 import {
   getQuestions,
-  getRecommendedQuestions,
 } from "@/lib/actions/question.action";
 
 import { HomePageFilters } from "@/constants/filters";
 
 import type { SearchParamsProps } from "@/types";
 import type { Metadata } from "next";
-import { currentProfile } from "@/lib/fetchUserData";
 
 export const metadata: Metadata = {
   title: "Colle - Tanya Jawab",
@@ -24,21 +23,20 @@ export const metadata: Metadata = {
 
 export default async function Home({ searchParams }: SearchParamsProps) {
 
-  // const { userId: userId } = auth();
   const user = await currentProfile();
   const userId = user._id.toString();
-  // const userId = "65f62faac47e266eaaaff298"
+
 
 
   let result; 
 
   if (searchParams?.filter === "recommended") {
     if (userId) {
-      result = await getRecommendedQuestions({
-        userId: userId,
+      result = await getQuestions({
         searchQuery: searchParams.q,
+        filter: searchParams.filter,
         page: searchParams.page ? +searchParams.page : 1,
-      });
+      });      
     } else {
       result = {
         questions: [],
@@ -74,10 +72,11 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           otherClasses="flex-1"
         />
 
+        {/* <Filter filters={QuestionFilters} /> */}
+
         <Filter
           filters={HomePageFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
-          containerClasses="hidden max-md:flex"
+        
         />
       </div>
 
@@ -97,6 +96,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
               views={question.views}
               answers={question.answers}
               anonymous={question.anonymous}
+              approved={question.approved}
               createdAt={question.createdAt}
             />
           ))

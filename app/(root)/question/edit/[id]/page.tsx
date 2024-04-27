@@ -1,4 +1,3 @@
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import Question from "@/components/forms/Question";
@@ -17,8 +16,6 @@ export const metadata: Metadata = {
 };
 
 const Page = async ({ params }: ParamsProps) => {
-  // const { userId } = auth();
-  //const userId = "65ebb3d12f7d3011af8cb203";
   const user = await currentProfile();
   const userId = user._id.toString();
 

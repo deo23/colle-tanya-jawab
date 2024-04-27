@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 import * as z from "zod";
@@ -45,7 +44,6 @@ const Answer = ({
   const pathname = usePathname();
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isSubmittingAi, setIsSubmittingAi] = useState<boolean>(false);
 
   const parsedAnswerData = answerData && JSON.parse(answerData);
 
@@ -103,51 +101,9 @@ const Answer = ({
     }
   }
 
-  const generateAiAnswer = async () => {
-    if (!authorId) return;
-
-    setIsSubmittingAi(true);
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/openai`,
-        {
-          method: "POST",
-          body: JSON.stringify({ question }),
-        }
-      );
-
-      const aiAnswer = await response.json();
-
-      const formattedAiAnswer = aiAnswer.error
-        ? "Sorry, I could not provide an answer to your question, please try again."
-        : aiAnswer.reply.replace(/\n/g, "<br />");
-
-      if (editorRef.current) {
-        const editor = editorRef.current as any;
-        editor.setContent(formattedAiAnswer);
-      }
-    } catch (error: any) {
-      toast({
-        title: "Error generating AI answer ⚠️",
-        variant: "destructive",
-      });
-
-      console.log(error);
-      throw error;
-    } finally {
-      setIsSubmittingAi(false);
-
-      toast({
-        title: "AI answer generated successfully 🎉",
-        variant: "default",
-      });
-    }
-  };
-
   return (
     <div>
-      <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center sm:gap-2 pt-5">
+      <div className="flex flex-col justify-between gap-5 pt-5 sm:flex-row sm:items-center sm:gap-2">
         {type === "Create" && (
           <h4 className="paragraph-semibold text-dark400_light800">
             Write you answer here

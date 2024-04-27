@@ -10,7 +10,6 @@ import Question from "@/database/question.model";
 import Answer from "@/database/answer.model";
 
 import { connectToDatabase } from "@/lib/mongoose";
-import { assignBadges } from "@/lib/utils";
 
 import type {
   CreateUserParams,
@@ -22,7 +21,6 @@ import type {
   ToggleSaveQuestionParams,
   UpdateUserParams,
 } from "./shared.types";
-import type { BadgeCriteriaType } from "@/types";
 
 export async function createUser(userData: CreateUserParams) {
   try {
@@ -152,37 +150,14 @@ export async function getUserInfo(params: GetUserByIdParams) {
       },
     ]);
 
-    const [questionViews] = await Question.aggregate([
-      { $match: { author: user._id } },
-      {
-        $group: {
-          _id: null,
-          totalViews: { $sum: "$views" },
-        },
-      },
-    ]);
+    
 
     // Calculate total upvotes from both questions and answers
     const totalQuestionUpvotes = questionUpvotes ? questionUpvotes.totalUpvotes : 0;
     const totalAnswerUpvotes = answerUpvotes ? answerUpvotes.totalUpvotes : 0;
     const totalUpvotes = totalQuestionUpvotes + totalAnswerUpvotes;
 
-    const criteria = [
-      { type: "QUESTION_COUNT" as BadgeCriteriaType, count: totalQuestions },
-      { type: "ANSWER_COUNT" as BadgeCriteriaType, count: totalAnswers },
-      {
-        type: "QUESTION_UPVOTES" as BadgeCriteriaType,
-        count: totalQuestionUpvotes,
-      },
-      {
-        type: "ANSWER_UPVOTES" as BadgeCriteriaType,
-        count: totalAnswerUpvotes,
-      },
-      {
-        type: "TOTAL_VIEWS" as BadgeCriteriaType,
-        count: questionViews?.totalViews || 0,
-      },
-    ];
+    
 
     
 
@@ -191,7 +166,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
       totalQuestions,
       totalAnswers,
       reputation: user.reputation,
-      totalUpvotes: totalUpvotes,
+      totalUpvotes,
     };
   } catch (error) {
     console.log(error);
@@ -243,12 +218,14 @@ export async function getAllUsers(params: GetAllUsersParams) {
 
     const isNext = totalUsers > skipAmount + users.length;
 
+    // Using object shorthand here
     return { users, isNext };
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
+
 
 export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
   try {
