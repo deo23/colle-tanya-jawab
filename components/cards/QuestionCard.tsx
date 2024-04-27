@@ -3,6 +3,7 @@ import Link from "next/link";
 import RenderTag from "@/components/shared/RenderTag";
 import Metric from "@/components/shared/Metric";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
+import { currentProfile } from "@/lib/fetchUserData";
 
 import { getFormattedNumber, getTimestamp } from "@/lib/utils";
 
@@ -13,6 +14,7 @@ interface QuestionProps {
   author: {
     _id: string;
     name: string;
+    role: string;
     picture: string;
     userId: string;
   };
@@ -20,6 +22,7 @@ interface QuestionProps {
   views: number;
   answers: Array<object>;
   anonymous: Boolean; 
+  approved: Boolean; 
   createdAt: Date;
   userId?: string | null;
 }
@@ -33,10 +36,12 @@ const QuestionCard = ({
   views,
   answers,
   anonymous,
+  approved,
   createdAt,
   userId,
 }: QuestionProps) => {
   const showActionButtons = userId && userId === author.userId;
+  
 
   return (
     <div className="card-wrapper p-9 sm:px-11 rounded-[10px] shadow-2xl" style={{ backgroundColor: 'rgba(238,238,238,255)' }} >
@@ -46,8 +51,20 @@ const QuestionCard = ({
             {getTimestamp(createdAt)}
           </span>
           <Link href={`/question/${_id}`}>
-            <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1">
+            <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex items-center">
+            <div className="flex items-center ml-auto">
+            {approved && (
+              <img
+                src="/assets/images/approved.png"
+                alt="Approved"
+                width={23}
+                height={23}
+                className="mr-2"
+              />
+            )}
+          </div>
               {title}
+              {/* Tambahkan elemen div untuk mengelompokkan judul dan gambar */}
             </h3>
           </Link>
         </div>
@@ -71,8 +88,8 @@ const QuestionCard = ({
             <Metric
               imgUrl={author.picture}
               alt="user"
-              value={author.name}
-              title={` • asked ${getTimestamp(createdAt)}`}
+              value={`${author.name} \u2022 ${author.role}`}
+              title={` asked ${getTimestamp(createdAt)}`}
               href={`/profile/${author._id}`}
               isAuthor
               textStyles="body-medium text-dark400_light700"

@@ -19,6 +19,7 @@ import type { URLProps } from "@/types";
 import type { Metadata } from "next";
 
 import { currentProfile } from "@/lib/fetchUserData";
+import { get } from "http";
 
 export async function generateMetadata({
   params,
@@ -43,6 +44,10 @@ const Page = async ({ params, searchParams }: URLProps) => {
   }
 
   const result = await getQuestionById({ questionId: params.id });
+  console.log("🚀 ~ Page ~ result - RESULT :", result)
+  const userData = await getUserById({ userId: result.author._id });
+  console.log("🚀 ~ Page ~ userData:", userData)
+
   if (!result) return null;
 
   const showActionButtons = userId && userId === result.author._id.toString();
@@ -66,7 +71,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
               height={22}
             />
             <p className="paragraph-semibold text-dark300_light700">
-              {result.author.name}
+              {`${result.author.name} \u2022 ${userData.role}`}
             </p>
           </Link>
         )}
@@ -105,7 +110,17 @@ const Page = async ({ params, searchParams }: URLProps) => {
       
       <div className="bg-gradient-to-br from-background-light800 to-darkgradient p-6 m-2 rounded-xl shadow-lg">
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
-          {result.title}
+          <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1 flex items-center">
+            <span className="ml-2">{result.title} </span>
+              {result.approved && (
+                <img
+                  src="/assets/images/approved.png"
+                  alt="Approved"
+                  width={25}
+                  height={25}
+                />
+              )}              
+          </h3>
         </h2>
 
         <div className="mb-8 mt-5 flex flex-wrap gap-4">
@@ -155,11 +170,12 @@ const Page = async ({ params, searchParams }: URLProps) => {
     
     <div className="bg-gradient-to-br from-background-light800 to-darkgradient p-6 m-2 rounded-xl shadow-lg border">
       <AllAnswers
-          questionId={result._id}
-          userId={mongoUser._id}
-          totalAnswers={result.answers.length}
-          filter={searchParams?.filter}
-          page={searchParams?.page ? +searchParams.page : 1}
+        questionId={result._id}
+        questionAuthor={result.author._id}
+        userId={mongoUser._id}
+        totalAnswers={result.answers.length}
+        filter={searchParams?.filter}
+        page={searchParams?.page ? +searchParams.page : 1}
       />
     </div>
 

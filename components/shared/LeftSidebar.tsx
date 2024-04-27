@@ -13,6 +13,10 @@ const LeftSidebar = () => {
   const { userId } = useAuth();
   const pathname = usePathname();
 
+  const handleClick = () => {
+    window.location.href = 'http://localhost:3000';
+  };
+
   return (
     <section className="primary-leftsidebar light-border custom-scrollbar sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r p-6 pt-36 max-sm:hidden lg:w-[266px]">
       <div className="flex flex-1 flex-col gap-6">
@@ -58,10 +62,9 @@ const LeftSidebar = () => {
         })}
       </div>
 
-      <SignedOut>
+      {/* <SignedOut> */}
         <div className="flex flex-col gap-3">
-          {/* <Link href="/sign-in">
-            <Button className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
+            <Button onClick={handleClick} className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
               <Image
                 src="/assets/icons/account.svg"
                 alt="sign in"
@@ -70,12 +73,11 @@ const LeftSidebar = () => {
                 className="invert-colors lg:hidden"
               />
               <span className="primary-text-gradient max-lg:hidden">
-                Log In
+                Back to Dashboard
               </span>
             </Button>
-          </Link>
 
-          <Link href="/sign-up">
+          {/* <Link href="/sign-up">
             <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
               <Image
                 src="/assets/icons/sign-up.svg"
@@ -88,7 +90,7 @@ const LeftSidebar = () => {
             </Button>
           </Link> */}
         </div>
-      </SignedOut>
+      {/* </SignedOut> */}
     </section>
   );
 };
