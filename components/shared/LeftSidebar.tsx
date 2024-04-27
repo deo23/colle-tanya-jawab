@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 
 import { SignedOut, useAuth } from "@clerk/nextjs";
 
-import { Button } from "@/components/ui/button";
 
 import { sidebarLinks } from "@/constants";
 

@@ -3,6 +3,7 @@ import { connectToDatabase } from "./mongoose";
 import axios from "axios";
 import User from "@/database/user.model";
 import { createUser } from "./actions/user.action";
+
 type Mahasiswa = {
   id_user: number;
   nama: string;
@@ -19,6 +20,7 @@ type Mahasiswa = {
   token: string;
   profileUrl: string;
 };
+
 export function getUserToken() {
   const cookieStore = cookies();
   const token = cookieStore.get("user_token");
@@ -27,23 +29,23 @@ export function getUserToken() {
   }
   return token.value;
 }
+
 export const currentProfile = async () => {
-  const user_token = getUserToken();
-  //Using Cookie and use ProfileId, but for now we will use the hardcoded profileId
+  const userToken = getUserToken();  // Updated to camelCase
+  // Using Cookie and use ProfileId, but for now we will use the hardcoded profileId
   await connectToDatabase();
-  console.log("token : ", user_token);
+  console.log("token : ", userToken);
   const url = process.env.NEXT_PUBLIC_DASHBOARD_URL;
   console.log("url : ", url);
   const config = {
     headers: {
-      Authorization: `Bearer ${user_token}`,
+      Authorization: `Bearer ${userToken}`,  // Updated to camelCase
       Accept: "application/json",
     },
   };
-  
+
   // Check if the profile exists
-  const userData = (await axios.get<Mahasiswa>(url + "/user", config))
-    .data;
+  const userData = (await axios.get<Mahasiswa>(`${url}/user`, config)).data;
   console.log("user data : ", userData);
   const existingProfile = await User.findOne({ email: userData.email });
   if (!existingProfile) {

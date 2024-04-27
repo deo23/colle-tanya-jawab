@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { SignedIn } from "@clerk/nextjs";
-
 import Metric from "@/components/shared/Metric";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
 

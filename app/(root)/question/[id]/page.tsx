@@ -2,8 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
-import { SignedIn, auth } from "@clerk/nextjs";
-
 import Metric from "@/components/shared/Metric";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTag from "@/components/shared/RenderTag";
@@ -33,15 +31,13 @@ export async function generateMetadata({
 }
 
 const Page = async ({ params, searchParams }: URLProps) => {
-  // const { userId: userId } = auth();
-  //const userId = "65ebb3d12f7d3011af8cb203";
   const user = await currentProfile();
   const userId = user._id.toString();
 
   let mongoUser;
 
   if (userId) {
-    mongoUser = await getUserById({ userId: userId });
+    mongoUser = await getUserById({ userId });
   } else {
     return redirect("/sign-in");
   }
@@ -59,7 +55,8 @@ const Page = async ({ params, searchParams }: URLProps) => {
         {!result.anonymous && (
           <Link
             href={`/profile/${result.author.userId}`}
-            className="flex items-center justify-start gap-1 mb-8"
+            className="flex mb-8 items-center justify-start gap-1"
+
           >
             <Image
               src={result.author.picture}
@@ -76,7 +73,8 @@ const Page = async ({ params, searchParams }: URLProps) => {
         {result.anonymous && (
           <Link
           href={``}
-          className="flex items-center justify-start gap-1 mb-8"
+          className="flex mb-8 items-center justify-start gap-1"
+
         >
             <Image
               src="/assets/images/anonymous.png"

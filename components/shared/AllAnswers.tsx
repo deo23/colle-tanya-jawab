@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { SignedIn } from "@clerk/nextjs";
 
 import Filter from "@/components/shared/Filter";
 import ParseHTML from "@/components/shared/ParseHTML";

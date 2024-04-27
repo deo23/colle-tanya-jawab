@@ -30,9 +30,6 @@ import { useTheme } from "@/context/ThemeProvider";
 import { createQuestion, editQuestion } from "@/lib/actions/question.action";
 import { QuestionValidation } from "@/lib/validations";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@radix-ui/react-tabs";
-import { userInfo } from "os";
-import AnswersTab from "../shared/AnswersTab";
-import QuestionsTab from "../shared/QuestionsTab";
 
 interface Props {
   type: string;
@@ -165,10 +162,10 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
                 <div className="mt-10 flex">
                   <Tabs defaultValue={field.value ? "true" : "false"} className="flex-1 rounded-sm">
                     <TabsList className="background-light800_dark400 min-h-[42px] p-1 pt-2 rounded-sm">
-                      <TabsTrigger value="false" className="tab pl-5 pr-5 pt-1 pb-1" style={{ fontSize: '0.85rem' }} onClick={() => field.onChange(false)}>
+                      <TabsTrigger value="false" className="tab py-1 px-5" style={{ fontSize: '0.85rem' }} onClick={() => field.onChange(false)}>
                         My account
                       </TabsTrigger>
-                      <TabsTrigger value="true" className="tab pl-5 pr-5 pt-1 pb-1" style={{ fontSize: '0.85rem' }} onClick={() => field.onChange(true)}>
+                      <TabsTrigger value="true" className="tab py-1 px-5" style={{ fontSize: '0.85rem' }} onClick={() => field.onChange(true)}>
                         Anonim
                       </TabsTrigger>
                     </TabsList>
@@ -185,7 +182,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           control={form.control}
           name="title"
           render={({ field }) => (
-            <FormItem className="flex w-full flex-col mt-0">
+            <FormItem className="w-full flex flex-col mt-0">
               <FormLabel className="paragraph-semibold text-dark400_light800">
                 Question Title <span className="text-primary-500">*</span>
               </FormLabel>
@@ -289,7 +286,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           control={form.control}
           name="tags"
           render={({ field }) => (
-            <FormItem className="flex w-full flex-col mt-3">
+            <FormItem className="w-full flex flex-col mt-3">
               <FormLabel className="paragraph-semibold text-dark400_light800 mt-5">
                 Tags <span className="text-primary-500">*</span>
               </FormLabel>
@@ -340,7 +337,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         />
         <Button
           type="submit"
-          className="primary-gradient w-fit !text-light-900 mt-10"
+          className="w-fit primary-gradient !text-light-900 mt-10"
           disabled={isSubmitting}
         >
           {isSubmitting ? (

@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { SignedIn } from "@clerk/nextjs";
 import RenderTag from "@/components/shared/RenderTag";
 import Metric from "@/components/shared/Metric";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
@@ -40,7 +39,7 @@ const QuestionCard = ({
   const showActionButtons = userId && userId === author.userId;
 
   return (
-    <div className="card-wrapper rounded-[10px] p-9 sm:px-11 shadow-2xl" style={{ backgroundColor: 'rgba(238,238,238,255)' }} >
+    <div className="card-wrapper p-9 sm:px-11 rounded-[10px] shadow-2xl" style={{ backgroundColor: 'rgba(238,238,238,255)' }} >
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
           <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
@@ -66,7 +65,7 @@ const QuestionCard = ({
         ))}
       </div>
 
-      <div className="flex flex-wrap gap-3 mt-6 w-full justify-between">
+      <div className="flex w-full flex-wrap justify-between mt-6 gap-3">
         {!anonymous && (
           <div className="flex items-center gap-3">
             <Metric

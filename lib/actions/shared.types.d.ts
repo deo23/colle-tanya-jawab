@@ -5,17 +5,9 @@ import { IUser } from "@/database/user.model";
 /**
  * Common interfaces used in actions
  */
-interface ClerkId {
-  clerkId: string;
-}
 
 interface userId{
   userId: string;
-
-}
-
-interface Picture{
-  picture: string;
 
 }
 

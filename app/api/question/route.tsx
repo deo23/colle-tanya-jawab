@@ -1,6 +1,4 @@
 import Question from "@/database/question.model";
-import Tag from "@/database/tag.model";
-import User from "@/database/user.model";
 
 import { FilterQuery } from "mongoose";
 
@@ -34,7 +32,7 @@ export async function GET(req: any) {
     if (q) {
       tagsMatch = q.match(/#\w+/g);
     }
-    let tags: string[] = tagsMatch ? tagsMatch.map((tag) => tag.slice(1)) : [];
+    const tags: string[] = tagsMatch ? tagsMatch.map((tag) => tag.slice(1)) : [];
 
     const tagIds = await getTagIdByName(tags);
 

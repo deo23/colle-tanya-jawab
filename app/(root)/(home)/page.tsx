@@ -16,7 +16,6 @@ import { HomePageFilters } from "@/constants/filters";
 
 import type { SearchParamsProps } from "@/types";
 import type { Metadata } from "next";
-import { currentProfile } from "@/lib/fetchUserData";
 
 export const metadata: Metadata = {
   title: "Home — DevOverflow",
@@ -35,10 +34,10 @@ export default async function Home({ searchParams }: SearchParamsProps) {
   if (searchParams?.filter === "recommended") {
     if (userId) {
       result = await getRecommendedQuestions({
-        userId: userId,
+        userId,
         searchQuery: searchParams.q,
         page: searchParams.page ? +searchParams.page : 1,
-      });
+      });      
     } else {
       result = {
         questions: [],

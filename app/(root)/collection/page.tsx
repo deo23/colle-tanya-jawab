@@ -1,4 +1,3 @@
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
@@ -26,7 +25,7 @@ export default async function Collection({ searchParams }: SearchParamsProps) {
   const userId = user._id.toString();
   if (!userId) return null;
 
-  const mongoUser = await getUserById({ userId: userId });
+  const mongoUser = await getUserById({ userId });
   if (!mongoUser?.onboarded) redirect("/onboarding");
 
   const result = await getSavedQuestions({
@@ -67,6 +66,7 @@ export default async function Collection({ searchParams }: SearchParamsProps) {
               upvotes={question.upvotes}
               views={question.views}
               answers={question.answers}
+              anonymous={question.anonymous}
               createdAt={question.createdAt}
             />
           ))
