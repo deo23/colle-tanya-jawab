@@ -1,5 +1,8 @@
 # Collaborative Learning - Tanya Jawab
 
+## Prerequisites
+Mongodb installed
+
 ## Setup Instructions
 
 ### Step 1: Clone Repository
