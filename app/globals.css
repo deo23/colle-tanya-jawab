@@ -167,10 +167,20 @@ code {
 
 /*Left Sidebar */
 .primary-leftsidebar {
-  background: #170206 ;
+  background: #000000 ;
 }
 
 /*Left Sidebar */
 .primary-logo {
   background: #170206 ;
+}
+
+/*box detail pertanyaan */
+.box-detail-pertanyaan {
+  background: #B2B5BC ;
+}
+
+/*box button detail pertanyaan */
+.button-detail-pertanyaan {
+  background: #B2B5BC ;
 }

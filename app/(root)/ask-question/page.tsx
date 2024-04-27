@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 import { currentProfile } from "@/lib/fetchUserData";
 
 export const metadata: Metadata = {
-  title: "Ask a Question — DevOverflow",
+  title: "Ask a Question — Colle Tanya Jawab",
 };
 
 const Page = async () => {

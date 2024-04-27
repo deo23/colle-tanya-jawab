@@ -28,7 +28,7 @@ export async function generateMetadata({
   const question = await getQuestionById({ questionId: params.id });
 
   return {
-    title: `"${question.title}" — DevOverflow`,
+    title: `"${question.title}" — Colle Tanya Jawab`,
   };
 }
 
@@ -103,12 +103,14 @@ const Page = async ({ params, searchParams }: URLProps) => {
             />
           </div>
         </div>
+      </div>
+      
+      <div className="bg-gradient-to-br from-background-light800 to-darkgradient p-6 m-2 rounded-xl shadow-lg">
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
           {result.title}
         </h2>
-      </div>
 
-      <div className="mb-8 mt-5 flex flex-wrap gap-4">
+        <div className="mb-8 mt-5 flex flex-wrap gap-4">
         <Metric
           imgUrl="/assets/icons/clock.svg"
           alt="clock icon"
@@ -131,10 +133,10 @@ const Page = async ({ params, searchParams }: URLProps) => {
           textStyles="small-medium text-dark400_light800"
         />
       </div>
-
+      
       <ParseHTML data={result.content} />
 
-      <div className="mt-8 flex flex-row items-center justify-between">
+      <div className="mt-8 flex flex-row items-center justify-between my-8">
         <div className="flex flex-wrap gap-2">
           {result.tags.map((tag: any) => (
             <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
@@ -150,15 +152,20 @@ const Page = async ({ params, searchParams }: URLProps) => {
           )}
         {/* </SignedIn> */}
       </div>
-
+      
+    </div>
+    
+    <div className="bg-gradient-to-br from-background-light800 to-darkgradient p-6 m-2 rounded-xl shadow-lg border">
       <AllAnswers
-        questionId={result._id}
-        userId={mongoUser._id}
-        totalAnswers={result.answers.length}
-        filter={searchParams?.filter}
-        page={searchParams?.page ? +searchParams.page : 1}
+          questionId={result._id}
+          userId={mongoUser._id}
+          totalAnswers={result.answers.length}
+          filter={searchParams?.filter}
+          page={searchParams?.page ? +searchParams.page : 1}
       />
+    </div>
 
+      
       <Answer
         type="Create"
         question={result.content}
