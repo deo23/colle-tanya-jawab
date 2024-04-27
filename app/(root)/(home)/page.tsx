@@ -10,7 +10,6 @@ import { currentProfile } from "@/lib/fetchUserData";
 
 import {
   getQuestions,
-  getRecommendedQuestions,
 } from "@/lib/actions/question.action";
 
 import { HomePageFilters } from "@/constants/filters";

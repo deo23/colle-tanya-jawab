@@ -3,9 +3,9 @@ import Link from "next/link";
 import RenderTag from "@/components/shared/RenderTag";
 import Metric from "@/components/shared/Metric";
 import EditDeleteAction from "@/components/shared/EditDeleteAction";
-import { currentProfile } from "@/lib/fetchUserData";
 
 import { getFormattedNumber, getTimestamp } from "@/lib/utils";
+import Image from "next/image";
 
 interface QuestionProps {
   _id: string;
@@ -21,8 +21,8 @@ interface QuestionProps {
   upvotes: string[];
   views: number;
   answers: Array<object>;
-  anonymous: Boolean; 
-  approved: Boolean; 
+  anonymous: Boolean;
+  approved: Boolean;
   createdAt: Date;
   userId?: string | null;
 }
@@ -41,10 +41,12 @@ const QuestionCard = ({
   userId,
 }: QuestionProps) => {
   const showActionButtons = userId && userId === author.userId;
-  
 
   return (
-    <div className="card-wrapper p-9 sm:px-11 rounded-[10px] shadow-2xl" style={{ backgroundColor: 'rgba(238,238,238,255)' }} >
+    <div
+      className="card-wrapper rounded-[10px] p-9 shadow-2xl sm:px-11"
+      style={{ backgroundColor: "rgba(238,238,238,255)" }}
+    >
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
           <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
@@ -52,17 +54,18 @@ const QuestionCard = ({
           </span>
           <Link href={`/question/${_id}`}>
             <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex items-center">
-            <div className="flex items-center ml-auto">
-            {approved && (
-              <img
-                src="/assets/images/approved.png"
-                alt="Approved"
-                width={23}
-                height={23}
-                className="mr-2"
-              />
-            )}
-          </div>
+              <div className="ml-auto flex items-center">
+                {approved && (
+                  <div className="mr-2">
+                    <Image
+                      src="/assets/images/approved.png"
+                      alt="Approved"
+                      width={23}
+                      height={23}
+                    />
+                  </div>
+                )}
+              </div>
               {title}
               {/* Tambahkan elemen div untuk mengelompokkan judul dan gambar */}
             </h3>
@@ -70,9 +73,9 @@ const QuestionCard = ({
         </div>
 
         {/* <SignedIn> */}
-          {showActionButtons && (
-            <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
-          )}
+        {showActionButtons && (
+          <EditDeleteAction type="Question" itemId={JSON.stringify(_id)} />
+        )}
         {/* </SignedIn> */}
       </div>
 
@@ -82,7 +85,7 @@ const QuestionCard = ({
         ))}
       </div>
 
-      <div className="flex w-full flex-wrap justify-between mt-6 gap-3">
+      <div className="mt-6 flex w-full flex-wrap justify-between gap-3">
         {!anonymous && (
           <div className="flex items-center gap-3">
             <Metric
@@ -100,9 +103,9 @@ const QuestionCard = ({
         {anonymous && (
           <div className="flex items-center gap-3">
             <Metric
-              imgUrl= "/assets/images/anonymous.png"
+              imgUrl="/assets/images/anonymous.png"
               alt="user"
-              value= "Anonymous"
+              value="Anonymous"
               title={` • asked ${getTimestamp(createdAt)}`}
               href={`/profile/${author._id}`}
               isAuthor
@@ -135,7 +138,7 @@ const QuestionCard = ({
             textStyles="small-medium text-dark400_light800"
           />
         </div>
-      </div>  
+      </div>
     </div>
   );
 };

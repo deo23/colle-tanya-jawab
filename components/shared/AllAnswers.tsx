@@ -14,7 +14,6 @@ import { getTimestamp } from "@/lib/utils";
 import { getQuestionById } from "@/lib/actions/question.action";
 
 import { AnswerFilters } from "@/constants/filters";
-import { useState } from 'react';
 import ApprovedAction from "@/components/shared/ApproveAction"; // Import the ApprovedAction component
 
 import type {
@@ -42,7 +41,7 @@ const AllAnswers = async ({
     sortBy: filter,
     page,
   });
-  const question = await getQuestionById({ questionId:questionId });
+  const question = await getQuestionById({ questionId });
 
   return (
     <div className="mt-11" >
@@ -55,8 +54,7 @@ const AllAnswers = async ({
           const showActionButtons = userId === JSON.stringify(answer.author._id);
           
           console.log("🚀 ~ {result.answers.map ~ answer.author._id:", answer.author._id)
-          const myQuestion = userId.toString() === question.author._id.toString();     
-               
+          const myQuestion = userId.toString() === question.author._id.toString();
           const notMyAnswer = JSON.stringify(userId) !== JSON.stringify(answer.author._id);
           const approved = (question.approved);
           console.log("🚀 ~ {result.answers.map ~ approved:", approved)
@@ -89,14 +87,14 @@ const AllAnswers = async ({
                 </Link>
                 <div className="flex justify-end">
                   <h3>
-                    {answer.approved && (
-                      <img
-                        src="/assets/images/approved.png"
-                        alt="Approved"
-                        width={23}
-                        height={23}
-                      />
-                    )}              
+                  {answer.approved && (
+                    <Image
+                      src="/assets/images/approved.png"
+                      alt="Approved"
+                      width={23}
+                      height={23}
+                    />
+                  )}         
                   </h3>
                   <Votes
                     type="Answer"

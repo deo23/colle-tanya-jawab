@@ -2,9 +2,6 @@
 import { markAnswerAsApproved } from "@/lib/actions/answer.action";
 import { markQuestionAsApproved } from "@/lib/actions/question.action";
 import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import path from "path";
-
 
 interface ApprovedActionProps {
   answerId: string;

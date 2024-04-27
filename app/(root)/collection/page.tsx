@@ -67,6 +67,7 @@ export default async function Collection({ searchParams }: SearchParamsProps) {
               views={question.views}
               answers={question.answers}
               anonymous={question.anonymous}
+              approved={question.approved}
               createdAt={question.createdAt}
             />
           ))

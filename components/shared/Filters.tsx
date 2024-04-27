@@ -56,12 +56,11 @@ const Filters = ({
         <Button
           key={filter.value}
           onClick={() => handleTypeClick(filter.value)}
-          className={`body-medium capitalize mb-0.5 mr-0.5 px-6 py-3 rounded-lg shadow-none md:mb-0 md:mr-0 line-clamp-1 ${
+          className={`body-medium mb-0.5 mr-0.5 line-clamp-1 rounded-lg px-6 py-3 capitalize text-light-500 shadow-none ${
             active === filter.value
-              ? "bg-primary-100 text-primary-500 dark:bg-dark-400 dark:hover:bg-dark-400"
-              : "bg-light-800 text-light-500 hover:bg-light-800 dark:bg-dark-300 dark:text-light-500 dark:hover:bg-dark-300"
-          }
-          `}
+              ? "bg-primary-100 text-primary-500"
+              : "bg-light-800 hover:bg-light-800"
+          } dark:bg-dark-300 dark:text-light-500 dark:hover:bg-dark-400 md:mb-0 md:mr-0`}
         >
           {filter.name}
         </Button>

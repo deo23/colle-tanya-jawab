@@ -166,7 +166,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
       totalQuestions,
       totalAnswers,
       reputation: user.reputation,
-      totalUpvotes: totalUpvotes,
+      totalUpvotes,
     };
   } catch (error) {
     console.log(error);
