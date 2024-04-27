@@ -203,6 +203,9 @@ export async function getQuestions(params: GetQuestionsParams) {
       case "unanswered":
         query.answers = { $size: 0 };
         break;
+      case "most_voted":
+        sortOptions = { upvotes: -1 };
+        break;
       default:
         break;
     }

@@ -35,9 +35,9 @@ export default async function Home({ searchParams }: SearchParamsProps) {
 
   if (searchParams?.filter === "recommended") {
     if (userId) {
-      result = await getRecommendedQuestions({
-        userId: userId,
+      result = await getQuestions({
         searchQuery: searchParams.q,
+        filter: searchParams.filter,
         page: searchParams.page ? +searchParams.page : 1,
       });
     } else {
@@ -75,16 +75,15 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           otherClasses="flex-1"
         />
 
-        <Filter filters={QuestionFilters} />
+        {/* <Filter filters={QuestionFilters} /> */}
 
-        {/* <Filter
+        <Filter
           filters={HomePageFilters}
-          otherClasses="min-h-[56px] sm:min-w-[170px]"
-          containerClasses="hidden max-md:flex"
-        /> */}
+        
+        />
       </div>
 
-      {/* <HomeFilters filters={HomePageFilters} /> */}
+      <HomeFilters filters={HomePageFilters} />
 
       <div className="mt-10 flex w-full flex-col gap-6">
         {result.questions.length > 0 ? (

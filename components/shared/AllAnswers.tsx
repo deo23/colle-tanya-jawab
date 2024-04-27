@@ -54,11 +54,14 @@ const AllAnswers = async ({
       </div>
       <div className="">
         {result.answers.map((answer: any) => {
-          const showActionButtons = JSON.stringify(userId) === JSON.stringify(answer.author._id);
+          const showActionButtons = userId === JSON.stringify(answer.author._id);
+          
           console.log("🚀 ~ {result.answers.map ~ answer.author._id:", answer.author._id)
-          const myQuestion = JSON.stringify(userId) === question.author._id;          
+          const myQuestion = userId.toString() === question.author._id.toString();     
+               
           const notMyAnswer = JSON.stringify(userId) !== JSON.stringify(answer.author._id);
-          const approved = !(question.approved);
+          const approved = (question.approved);
+          console.log("🚀 ~ {result.answers.map ~ approved:", approved)
 
 
 
@@ -119,7 +122,7 @@ const AllAnswers = async ({
                   />
                 )}
 
-                {approved && notMyAnswer && (
+                {!approved && notMyAnswer && myQuestion && (
                   <ApprovedAction questionId={questionId} answerId={answer._id} userId={userId} /> // Replace the placeholder button with the ApprovedAction component
                 )}
 
