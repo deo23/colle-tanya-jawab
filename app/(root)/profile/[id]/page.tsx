@@ -28,7 +28,7 @@ export async function generateMetadata({
 
 const Page = async ({ params, searchParams }: URLProps) => {
   // const { userId: userId } = auth();
-  const userId = "65ebb3d12f7d3011af8cb203"
+  const userId = "65f62faac47e266eaaaff298"
   const userInfo = await getUserInfo({ userId: params.id });
 
   return (
