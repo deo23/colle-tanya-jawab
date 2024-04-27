@@ -9,7 +9,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: tanyajawab # Set the root username
       MONGO_INITDB_ROOT_PASSWORD: tanyajawab # Set the root password
     ports:
-      - "27017:36101" # Map container port 27017 to host port 27017
+      - "36201:27017" # Map container port 27017 to host port 27017
     volumes:
       - mongodb_data:/data/db # Mount a volume for MongoDB data
 volumes:
