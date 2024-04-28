@@ -58,7 +58,7 @@ const QuestionCard = ({
                 {approved && (
                   <div className="mr-2">
                     <Image
-                      src="/assets/images/approved.png"
+                      src="/assets/images/approved2.png"
                       alt="Approved"
                       width={23}
                       height={23}

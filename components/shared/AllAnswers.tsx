@@ -89,7 +89,7 @@ const AllAnswers = async ({
                   <h3>
                   {answer.approved && (
                     <Image
-                      src="/assets/images/approved.png"
+                      src="/assets/images/approved2.png"
                       alt="Approved"
                       width={23}
                       height={23}
@@ -105,6 +105,9 @@ const AllAnswers = async ({
                     downvotes={answer.downvotes.length}
                     hasdownVoted={answer.downvotes.includes(userId)}
                   />
+                  {!approved && notMyAnswer && myQuestion && (
+                    <ApprovedAction questionId={questionId} answerId={answer._id} userId={userId} /> // Replace the placeholder button with the ApprovedAction component
+                  )}
                 </div>
                 
               </div>
@@ -118,9 +121,7 @@ const AllAnswers = async ({
                   />
                 )}
 
-                {!approved && notMyAnswer && myQuestion && (
-                  <ApprovedAction questionId={questionId} answerId={answer._id} userId={userId} /> // Replace the placeholder button with the ApprovedAction component
-                )}
+                
 
               {/* </SignedIn> */}
             </article>

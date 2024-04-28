@@ -66,7 +66,7 @@ const LeftSidebar = () => {
       </div>
 
       {/* <SignedOut> */}
-        <div className="flex flex-col gap-3">
+        {/* <div className="flex flex-col gap-3">
             <Button onClick={handleClick} className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
               <Image
                 src="/assets/icons/account.svg"
@@ -80,7 +80,7 @@ const LeftSidebar = () => {
               </span>
             </Button>
 
-          {/* <Link href="/sign-up">
+          <Link href="/sign-up">
             <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
               <Image
                 src="/assets/icons/sign-up.svg"
@@ -91,8 +91,8 @@ const LeftSidebar = () => {
               />
               <span className="max-lg:hidden">Sign Up</span>
             </Button>
-          </Link> */}
-        </div>
+          </Link>
+        </div> */}
       {/* </SignedOut> */}
     </section>
   );
