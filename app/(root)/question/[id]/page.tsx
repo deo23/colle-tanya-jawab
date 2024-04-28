@@ -111,7 +111,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
             <span className="ml-2">{result.title}</span>
             {result.approved && (
               <Image
-                src="/assets/images/approved.png"
+                src="/assets/images/approved2.png"
                 alt="Approved"
                 width={25}
                 height={25}
