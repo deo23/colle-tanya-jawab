@@ -17,16 +17,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex-between light:shadow-none shadow-300 bg-light fixed z-50 mr-5 w-full gap-5 p-6 sm:px-12">
-      <Link href="/" className="ml-[-20px] flex items-center  gap-3">
+    <nav className="flex-between fixed z-50 mr-5 w-full gap-5 bg-black p-6 shadow-light-300 dark:shadow-none sm:px-12">
+      <div // Wrap the Link component with a div and attach onClick event
+        className="flex items-center gap-3"
+        onClick={handleClick}
+        style={{ cursor: "pointer" }}
+      >
         <Image
           src="/assets/images/LogoSidebar.png"
           width={35}
           height={35}
           alt="Colle Logo"
         />
-
-        <p className="h2-bold text-left font-spaceGrotesk text-base text-white  max-sm:hidden">
+        <p className="h2-bold font-spaceGrotesk text-base text-white max-sm:hidden">
           Colle - Tanya Jawab
         </p>
       </div>
