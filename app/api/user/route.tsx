@@ -1,6 +1,6 @@
 import User from "@/database/user.model";
 import { connectToDatabase } from "@/lib/mongoose";
-import { getUserInfo} from "@/lib/actions/user.action";
+import { getUserInfo } from "@/lib/actions/user.action";
 
 export async function POST(request: any) {
   try {
@@ -28,7 +28,6 @@ export async function POST(request: any) {
   }
 }
 
-
 export async function GET(req: any) {
   try {
     connectToDatabase();
@@ -40,9 +39,6 @@ export async function GET(req: any) {
     // Retrieve the user document based on the provided email
     const user = await User.findOne({ email: userEmail });
     const userInfo = await getUserInfo({ userId: user.id });
-    console.log("🚀 ~ GET ~ userInfo:", userInfo)
-    console.log("🚀 ~ GET ~ userInfo:", userInfo.totalQuestions)
-    
 
     if (!user) {
       return new Response("User not found", { status: 404 });

@@ -16,7 +16,6 @@ const Page = async () => {
   const userId = user._id.toString();
 
   if (!userId) return null;
-  // const userId = "65f62faac47e266eaaaff298"
   const mongoUser = await getUserById({ userId });
   if (!mongoUser?.onboarded) redirect("/onboarding");
 

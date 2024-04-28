@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { markAnswerAsApproved } from "@/lib/actions/answer.action";
 import { markQuestionAsApproved } from "@/lib/actions/question.action";
 import { usePathname } from "next/navigation";
@@ -11,7 +11,7 @@ interface ApprovedActionProps {
   questionId: string; // Menambahkan prop questionId
 }
 
-const ApprovedAction = ({ answerId, questionId  }: ApprovedActionProps) => {
+const ApprovedAction = ({ answerId, questionId }: ApprovedActionProps) => {
   const pathname = usePathname();
 
   const handleApprove = async () => {
@@ -28,7 +28,7 @@ const ApprovedAction = ({ answerId, questionId  }: ApprovedActionProps) => {
 
       if (result.isConfirmed) {
         await markAnswerAsApproved({ answerId, path: pathname });
-        await markQuestionAsApproved({questionId, path: pathname}); // Menyetujui pertanyaan saat tombol "Approve" pada jawaban diklik
+        await markQuestionAsApproved({ questionId, path: pathname }); // Menyetujui pertanyaan saat tombol "Approve" pada jawaban diklik
         // Handle success, maybe show a message or update UI
       } else {
         console.log("User canceled the delete action");
@@ -41,12 +41,12 @@ const ApprovedAction = ({ answerId, questionId  }: ApprovedActionProps) => {
 
   return (
     // <button
-    //   className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900" 
+    //   className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900"
     //   onClick={handleApprove}
     // >
     //   Approve
     // </button>
-    <div className="flex ml-3 items-center justify-end gap-3 max-sm:w-full">
+    <div className="ml-3 flex items-center justify-end gap-3 max-sm:w-full">
       {/* <Image
         src="/assets/images/approved1.png"
         alt="Approved"
@@ -66,10 +66,4 @@ const ApprovedAction = ({ answerId, questionId  }: ApprovedActionProps) => {
   );
 };
 
-
-
 export default ApprovedAction;
-
-
-
-
