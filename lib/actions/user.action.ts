@@ -94,8 +94,6 @@ export async function getUserById(params: { userId: string }) {
       _id: userId,
     });
 
-    console.log(user);
-
     return user;
   } catch (error) {
     console.log(error);
@@ -150,16 +148,12 @@ export async function getUserInfo(params: GetUserByIdParams) {
       },
     ]);
 
-    
-
     // Calculate total upvotes from both questions and answers
-    const totalQuestionUpvotes = questionUpvotes ? questionUpvotes.totalUpvotes : 0;
+    const totalQuestionUpvotes = questionUpvotes
+      ? questionUpvotes.totalUpvotes
+      : 0;
     const totalAnswerUpvotes = answerUpvotes ? answerUpvotes.totalUpvotes : 0;
     const totalUpvotes = totalQuestionUpvotes + totalAnswerUpvotes;
-
-    
-
-    
 
     return {
       user,
@@ -173,7 +167,6 @@ export async function getUserInfo(params: GetUserByIdParams) {
     throw error;
   }
 }
-
 
 export async function getAllUsers(params: GetAllUsersParams) {
   try {
@@ -226,7 +219,6 @@ export async function getAllUsers(params: GetAllUsersParams) {
   }
 }
 
-
 export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
   try {
     connectToDatabase();
@@ -246,14 +238,14 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
       await User.findByIdAndUpdate(
         userId,
         { $pull: { saved: questionId } },
-        { new: true }
+        { new: true },
       );
     } else {
       // add question to saved
       await User.findByIdAndUpdate(
         userId,
         { $addToSet: { saved: questionId } },
-        { new: true }
+        { new: true },
       );
     }
 

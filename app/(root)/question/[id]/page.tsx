@@ -43,14 +43,12 @@ const Page = async ({ params, searchParams }: URLProps) => {
   }
 
   const result = await getQuestionById({ questionId: params.id });
-  console.log("🚀 ~ Page ~ result - RESULT :", result);
+
   const userData = await getUserById({ userId: result.author._id });
-  console.log("🚀 ~ Page ~ userData:", userData);
 
   if (!result) return null;
 
   const showActionButtons = userId && userId === result.author._id.toString();
-  console.log("🚀 ~ Page ~ result:", result.author._id.toString());
 
   return (
     <>

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 
 import { SignedIn, UserButton } from "@clerk/nextjs";
@@ -8,8 +7,6 @@ import Mobile from "@/components/shared/navbar/Mobile";
 import GlobalSearch from "@/components/shared/search/GlobalSearch";
 
 const Navbar = () => {
-  const url = process.env.DASHBOARD_URL || ""; // Assign process.env.DASHBOARD_URL to url
-
   // Function to handle redirection
   const handleClick = () => {
     const dashboardUrl = process.env.DASHBOARD_URL || "http://localhost:3000";

@@ -6,18 +6,11 @@ import { usePathname } from "next/navigation";
 
 import { useAuth } from "@clerk/nextjs";
 
-import { Button } from "@/components/ui/button";
-
 import { sidebarLinks } from "@/constants";
 
 const LeftSidebar = () => {
   const { userId } = useAuth();
   const pathname = usePathname();
-
-  const handleClick = () => {
-    const dashboardUrl = process.env.DASHBOARD_URL || "http://localhost:3000";
-    window.location.href = dashboardUrl;
-  };
 
   return (
     <section className="primary-leftsidebar light-border custom-scrollbar sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r p-6 pt-36 max-sm:hidden lg:w-[266px]">

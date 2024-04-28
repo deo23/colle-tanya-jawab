@@ -25,9 +25,9 @@ type Mahasiswa = {
 export function getUserToken() {
   const cookieStore = cookies();
   const token = cookieStore.get("user_token");
+  const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARDHOME_URL || "";
   if (!token) {
-    return redirect("http://localhost:3000/dashboard");
-    return "";
+    return redirect(dashboardUrl);
   }
   return token.value;
 }
@@ -48,7 +48,7 @@ export const currentProfile = async () => {
 
   // Check if the profile exists
   const userData = (await axios.get<Mahasiswa>(`${url}/user`, config)).data;
-  console.log("user data : ", userData);
+  console.log("user data dashboard : ", userData);
   const existingProfile = await User.findOne({ email: userData.email });
   if (!existingProfile) {
     // Profile doesn't exist, create a dummy profile
@@ -72,16 +72,14 @@ export const currentProfile = async () => {
     // Save the dummy profile to the database
     const createdProfile = await createUser(dummyProfile);
     if (createdProfile) {
-      console.log("Dummy profile created:", createdProfile);
       // Update userId with the string representation of the _id field
       await User.updateOne(
         { _id: createdProfile._id },
         { $set: { userId: createdProfile._id.toString() } },
       );
-      console.log("userId updated:", createdProfile._id.toString());
     }
   } else {
-    console.log("Profile already exists:", existingProfile);
+    console.log("Profile already exists Tanya Jawab:", existingProfile);
   }
   if (existingProfile) {
     return existingProfile;
