@@ -43,14 +43,12 @@ const Page = async ({ params, searchParams }: URLProps) => {
   }
 
   const result = await getQuestionById({ questionId: params.id });
-  console.log("🚀 ~ Page ~ result - RESULT :", result);
+
   const userData = await getUserById({ userId: result.author._id });
-  console.log("🚀 ~ Page ~ userData:", userData);
 
   if (!result) return null;
 
   const showActionButtons = userId && userId === result.author._id.toString();
-  console.log("🚀 ~ Page ~ result:", result.author._id.toString());
 
   return (
     <>
@@ -111,7 +109,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
             <span className="ml-2">{result.title}</span>
             {result.approved && (
               <Image
-                src="/assets/images/approved.png"
+                src="/assets/images/approved2.png"
                 alt="Approved"
                 width={25}
                 height={25}

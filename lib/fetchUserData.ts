@@ -3,6 +3,7 @@ import { connectToDatabase } from "./mongoose";
 import axios from "axios";
 import User from "@/database/user.model";
 import { createUser } from "./actions/user.action";
+import { redirect } from "next/navigation";
 
 type Mahasiswa = {
   id_user: number;
@@ -24,14 +25,15 @@ type Mahasiswa = {
 export function getUserToken() {
   const cookieStore = cookies();
   const token = cookieStore.get("user_token");
+  const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARDHOME_URL || "";
   if (!token) {
-    return "";
+    return redirect(dashboardUrl);
   }
   return token.value;
 }
 
 export const currentProfile = async () => {
-  const userToken = getUserToken();  // Updated to camelCase
+  const userToken = getUserToken(); // Updated to camelCase
   // Using Cookie and use ProfileId, but for now we will use the hardcoded profileId
   await connectToDatabase();
   console.log("token : ", userToken);
@@ -39,14 +41,14 @@ export const currentProfile = async () => {
   console.log("url : ", url);
   const config = {
     headers: {
-      Authorization: `Bearer ${userToken}`,  // Updated to camelCase
+      Authorization: `Bearer ${userToken}`, // Updated to camelCase
       Accept: "application/json",
     },
   };
 
   // Check if the profile exists
   const userData = (await axios.get<Mahasiswa>(`${url}/user`, config)).data;
-  console.log("user data : ", userData);
+  console.log("user data dashboard : ", userData);
   const existingProfile = await User.findOne({ email: userData.email });
   if (!existingProfile) {
     // Profile doesn't exist, create a dummy profile
@@ -70,13 +72,14 @@ export const currentProfile = async () => {
     // Save the dummy profile to the database
     const createdProfile = await createUser(dummyProfile);
     if (createdProfile) {
-      console.log("Dummy profile created:", createdProfile);
       // Update userId with the string representation of the _id field
-      await User.updateOne({ _id: createdProfile._id }, { $set: { userId: createdProfile._id.toString() } });
-      console.log("userId updated:", createdProfile._id.toString());
+      await User.updateOne(
+        { _id: createdProfile._id },
+        { $set: { userId: createdProfile._id.toString() } },
+      );
     }
   } else {
-    console.log("Profile already exists:", existingProfile);
+    console.log("Profile already exists Tanya Jawab:", existingProfile);
   }
   if (existingProfile) {
     return existingProfile;

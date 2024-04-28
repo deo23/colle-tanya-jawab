@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 
-
 import Filter from "@/components/shared/Filter";
 import ParseHTML from "@/components/shared/ParseHTML";
 import Votes from "@/components/shared/Votes";
@@ -44,22 +43,20 @@ const AllAnswers = async ({
   const question = await getQuestionById({ questionId });
 
   return (
-    <div className="mt-11" >
-      <div className="flex items-center justify-between"  >
+    <div className="mt-11">
+      <div className="flex items-center justify-between">
         <h3 className="primary-text-gradient">{totalAnswers} Answers</h3>
         <Filter filters={AnswerFilters} />
       </div>
       <div className="">
         {result.answers.map((answer: any) => {
-          const showActionButtons = userId === JSON.stringify(answer.author._id);
-          
-          console.log("🚀 ~ {result.answers.map ~ answer.author._id:", answer.author._id)
-          const myQuestion = userId.toString() === question.author._id.toString();
-          const notMyAnswer = JSON.stringify(userId) !== JSON.stringify(answer.author._id);
-          const approved = (question.approved);
-          console.log("🚀 ~ {result.answers.map ~ approved:", approved)
-
-
+          const showActionButtons =
+            userId.toString() === answer.author._id.toString();
+          const myQuestion =
+            userId.toString() === question.author._id.toString();
+          const notMyAnswer =
+            JSON.stringify(userId) !== JSON.stringify(answer.author._id);
+          const approved = question.approved;
 
           return (
             <article key={answer._id} className="light-border border-b py-10">
@@ -77,7 +74,8 @@ const AllAnswers = async ({
                   />
                   <div className="flex flex-col sm:flex-row sm:items-center">
                     <p className="body-semibold text-dark300_light700">
-                      {answer.author.name}
+                      {/* {answer.author.name} */}
+                      {`${answer.author.name} \u2022 ${answer.author.role}`}
                     </p>
                     <p className="small-regular text-light400_light500 ml-0.5 mt-0.5 line-clamp-1">
                       <span className="max-sm:hidden">• answered </span>
@@ -87,14 +85,14 @@ const AllAnswers = async ({
                 </Link>
                 <div className="flex justify-end">
                   <h3>
-                  {answer.approved && (
-                    <Image
-                      src="/assets/images/approved.png"
-                      alt="Approved"
-                      width={23}
-                      height={23}
-                    />
-                  )}         
+                    {answer.approved && (
+                      <Image
+                        src="/assets/images/approved2.png"
+                        alt="Approved"
+                        width={23}
+                        height={23}
+                      />
+                    )}
                   </h3>
                   <Votes
                     type="Answer"
@@ -105,22 +103,24 @@ const AllAnswers = async ({
                     downvotes={answer.downvotes.length}
                     hasdownVoted={answer.downvotes.includes(userId)}
                   />
+                  {!approved && notMyAnswer && myQuestion && (
+                    <ApprovedAction
+                      questionId={questionId}
+                      answerId={answer._id}
+                      userId={userId}
+                    /> // Replace the placeholder button with the ApprovedAction component
+                  )}
                 </div>
-                
               </div>
               <ParseHTML data={answer.content} />
 
               {/* <SignedIn> */}
-                {showActionButtons && (
-                  <EditDeleteAction
-                    type="Answer"
-                    itemId={JSON.stringify(answer._id)}
-                  />
-                )}
-
-                {!approved && notMyAnswer && myQuestion && (
-                  <ApprovedAction questionId={questionId} answerId={answer._id} userId={userId} /> // Replace the placeholder button with the ApprovedAction component
-                )}
+              {showActionButtons && (
+                <EditDeleteAction
+                  type="Answer"
+                  itemId={JSON.stringify(answer._id)}
+                />
+              )}
 
               {/* </SignedIn> */}
             </article>

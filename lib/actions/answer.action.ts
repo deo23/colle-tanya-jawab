@@ -17,7 +17,7 @@ import type {
   EditAnswerParams,
   GetAnswerByIdParams,
   GetAnswersParams,
-  ApprovedAnswerParams
+  ApprovedAnswerParams,
 } from "./shared.types";
 
 export async function createAnswer(params: CreateAnswerParams) {
@@ -97,7 +97,7 @@ export async function deleteAnswer(params: DeleteAnswerParams) {
 
     await Question.updateMany(
       { _id: answer.question },
-      { $pull: { answers: answerId } }
+      { $pull: { answers: answerId } },
     );
 
     await Interaction.deleteMany({ answer: answerId });
@@ -138,7 +138,7 @@ export async function getAnswers(params: GetAnswersParams) {
     }
 
     const answers = await Answer.find({ question: questionId })
-      .populate("author", "_id userId name picture")
+      .populate("author", "_id userId name role picture")
       .sort(sortOptions)
       .skip(skipAmount)
       .limit(pageSize);
@@ -162,7 +162,7 @@ export async function getAnswerById(params: GetAnswerByIdParams) {
 
     const answer = await Answer.findById(answerId).populate(
       "author",
-      "_id userId name picture"
+      "_id userId name role picture",
     );
 
     return answer;
@@ -280,7 +280,7 @@ export async function markAnswerAsApproved(params: ApprovedAnswerParams) {
     const answer = await Answer.findByIdAndUpdate(
       answerId,
       { approved: true },
-      { new: true }
+      { new: true },
     );
 
     if (!answer) {
@@ -289,7 +289,7 @@ export async function markAnswerAsApproved(params: ApprovedAnswerParams) {
 
     // Increment the author's reputation for getting their answer approved
     await User.findByIdAndUpdate(answer.author, {
-      $inc: { reputation: 5 } // Assuming +5 reputation for having an answer approved
+      $inc: { reputation: 5 }, // Assuming +5 reputation for having an answer approved
     });
 
     revalidatePath(path); // Revalidate the path after marking the answer as approved
@@ -298,8 +298,3 @@ export async function markAnswerAsApproved(params: ApprovedAnswerParams) {
     throw error;
   }
 }
-
-
-
-
-

@@ -7,7 +7,7 @@ import Interaction from "@/database/interaction.model";
 
 import { connectToDatabase } from "@/lib/mongoose";
 
-import express from 'express';
+import express from "express";
 import console from "console";
 const app = express();
 
@@ -22,12 +22,11 @@ export async function GET(req: any) {
     const url = new URL(req.url);
 
     // Get the value of the answerId parameter from the search parameters
-    const answerId = url.searchParams.get('answerId');
-    console.log(answerId);
+    const answerId = url.searchParams.get("answerId");
 
     const answer = await Answer.findById(answerId).populate(
       "author",
-      "_id userId name picture"
+      "_id userId name picture",
     );
 
     if (!answer) {
@@ -46,7 +45,6 @@ export async function GET(req: any) {
 export async function POST(req: Request) {
   try {
     const { content, author, question, path } = await req.json();
-
 
     connectToDatabase();
 
@@ -111,7 +109,6 @@ export async function PATCH(req: any) {
   }
 }
 
-
 export async function DELETE(req: any) {
   try {
     connectToDatabase();
@@ -128,7 +125,7 @@ export async function DELETE(req: any) {
 
     await Question.updateMany(
       { _id: answer.question },
-      { $pull: { answers: answerId } }
+      { $pull: { answers: answerId } },
     );
 
     await Interaction.deleteMany({ answer: answerId });
