@@ -3,6 +3,8 @@
 import Image from "next/image";
 
 import { SignedIn, UserButton } from "@clerk/nextjs";
+
+import Theme from "@/components/shared/navbar/Theme";
 import Mobile from "@/components/shared/navbar/Mobile";
 import GlobalSearch from "@/components/shared/search/GlobalSearch";
 
@@ -21,7 +23,7 @@ const Navbar = () => {
         style={{ cursor: "pointer" }}
       >
         <Image
-          src="/assets/images/LogoSidebar.png"
+          src="/assets/images/LogoOrange.png"
           width={35}
           height={35}
           alt="Colle Logo"
@@ -34,6 +36,7 @@ const Navbar = () => {
       <GlobalSearch />
 
       <div className="flex-between gap-5">
+        <Theme />
         <SignedIn>
           <UserButton
             afterSignOutUrl="/"
