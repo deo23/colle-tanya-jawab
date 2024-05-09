@@ -11,7 +11,7 @@ import GlobalSearch from "@/components/shared/search/GlobalSearch";
 const Navbar = () => {
   // Function to handle redirection
   const handleClick = () => {
-    const dashboardUrl = process.env.DASHBOARD_URL || "http://localhost:3000";
+    const dashboardUrl = process.env.DASHBOARDHOME_URL || "";
     window.location.href = dashboardUrl;
   };
 

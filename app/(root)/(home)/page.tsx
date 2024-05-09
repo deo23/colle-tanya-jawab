@@ -23,10 +23,16 @@ export const metadata: Metadata = {
 
 export default async function Home({ searchParams }: SearchParamsProps) {
 
-  const user = await currentProfile();
-  const userId = user._id.toString();
+  let user;
+  try {
+    user = await currentProfile();
+  } catch (error) {
+    // Handle error when currentProfile() fails
+    console.error("Error fetching user profile:", error);
+    user = null; // Set user to null or handle appropriately
+  }
 
-
+  const userId = user ? user._id.toString() : null;
 
   let result; 
 
