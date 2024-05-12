@@ -1,51 +1,50 @@
-# Collaborative Learning - Tanya Jawab
 
-## Prerequisites
-Mongodb installed
+# Colle - Tanya Jawab
 
-## Setup Instructions
+## Deskripsi
+Colle - Tanya Jawab adalah sebuah aplikasi yang memungkinkan pengguna untuk berbagi pertanyaan dan jawaban secara kolaboratif. Aplikasi ini memanfaatkan teknologi Next JS Fullstack, MongoDB sebagai basis data, dan Typescript untuk pengembangan.
 
-### Step 1: Clone Repository
-- Clone the project repository from [GitHub](https://github.com/deo23/proyek3-tanya-jawab).
+## Teknologi yang Digunakan
+<p align="left">
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg" alt="Next JS" width="40" height="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" alt="MongoDB" width="40" height="40"/>
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="Typescript" width="40" height="40"/>
+</p>
 
-### Step 2: Install Dependencies
-- Run `npm install` to install project dependencies.
+## Prasyarat
+- **Node.js:** Pastikan Anda telah menginstal Node.js di sistem Anda. Anda dapat mengunduhnya dari [nodejs.org](https://nodejs.org/). Versi yang direkomendasikan: **20.12.2**
+- **Next.js:** Pastikan Anda telah menginstal Next.js. Jika belum, Anda dapat menginstalnya menggunakan npm dengan perintah `npm install -g next`. Versi yang direkomendasikan: **14.0.1**
+- **Typescript:** Pastikan Anda telah menginstal Typescript. Jika belum, Anda dapat menginstalnya menggunakan npm dengan perintah `npm install -g typescript`. Versi yang direkomendasikan: **5**
+- **MongoDB:** Pastikan Anda telah menginstal MongoDB di sistem Anda. Anda dapat mengunduhnya dari [mongodb.com](https://www.mongodb.com/try/download/community). Versi yang direkomendasikan: **7.0.9**
+- Pastikan Anda telah menginstal dan menjalankan dashboard [Collaborative Learning](https://github.com/farizibnu/collaborative-learning).
 
-### Step 3: Clone Dashboard
-- Clone the dashboard from the provided [repository](https://github.com/farizibnu/collaborative-learning).
+## Cara Install Colle Tanya Jawab
+1. Buka terminal.
+2. Clone repository ini.
+   ```
+   git clone https://github.com/deo23/proyek3-tanya-jawab.git
+   ```
+3. Masuk ke direktori repository yang telah di-clone.
+   ```
+   cd proyek3-tanya-jawab
+   ```
+4. Install dependencies menggunakan npm.
+   ```
+   npm install
+   ```
 
-### Step 4: Run Backend
-- Navigate to `backend/home/src/main/java/com/cole/HomeApplication.java` in the dashboard project.
-- Run the file.
+## Cara Menjalankan Colle Tanya Jawab
+1. Pastikan semua prasyarat terpenuhi dan dashboard Collaborative Learning sudah berjalan, serta Anda telah masuk ke dashboard.
+2. Buka terminal.
+3. Masuk ke direktori repository Colle Tanya Jawab.
+   ```
+   cd proyek3-tanya-jawab
+   ```
+4. Jalankan perintah berikut untuk memulai aplikasi.
+   ```
+   npm run dev
+   ```
+5. Buka browser dan akses `http://localhost:3001/`.
 
-### Step 5: Run Frontend
-- Navigate to the `frontend` directory in the dashboard project.
-- Run `npm run start`.
 
-### Step 6: Start XAMPP
-- Start Apache and MySQL in XAMPP.
-
-### Step 7: Create Database
-- Go to `localhost/phpmyadmin`.
-- Create a new database named `cole`.
-
-## Running the Project
-
-### Step 1: Run Backend
-- Navigate to `backend/home/src/main/java/com/cole/HomeApplication.java` in the dashboard project.
-- Run the file.
-
-### Step 2: Run Frontend
-- Navigate to the `frontend` directory in the dashboard project.
-- Run `npm run start`.
-
-### Step 3: Run Tanya Jawab Project
-- Run `npm run dev` in the Tanya Jawab project.
-
-### Step 4: Access Dashboard
-- Access the dashboard at [http://localhost:3000/](http://localhost:3000/).
-- Login with Google.
-
-### Step 5: Access Tanya Jawab
-- Access the Tanya Jawab project at [http://localhost:3001/](http://localhost:3001/).
 
