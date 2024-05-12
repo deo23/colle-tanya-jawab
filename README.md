@@ -16,6 +16,7 @@ Colle - Tanya Jawab adalah sebuah aplikasi yang memungkinkan pengguna untuk berb
 - **Next.js:** Pastikan Anda telah menginstal Next.js. Jika belum, Anda dapat menginstalnya menggunakan npm dengan perintah `npm install -g next`. Versi yang direkomendasikan: **14.0.1**
 - **Typescript:** Pastikan Anda telah menginstal Typescript. Jika belum, Anda dapat menginstalnya menggunakan npm dengan perintah `npm install -g typescript`. Versi yang direkomendasikan: **5**
 - **MongoDB:** Pastikan Anda telah menginstal MongoDB di sistem Anda. Anda dapat mengunduhnya dari [mongodb.com](https://www.mongodb.com/try/download/community). Versi yang direkomendasikan: **7.0.9**
+- Buat akun TinyMCE di situs web resmi [TinyMCE](https://www.tiny.cloud/).
 - Pastikan Anda telah menginstal dan menjalankan dashboard [Collaborative Learning](https://github.com/farizibnu/collaborative-learning).
 
 ## Cara Install Colle Tanya Jawab
@@ -32,6 +33,16 @@ Colle - Tanya Jawab adalah sebuah aplikasi yang memungkinkan pengguna untuk berb
    ```
    npm install
    ```
+5. Buat file `.env` pada direktori root proyek Colle - Tanya Jawab. Isilah file tersebut dengan konfigurasi berikut:
+    ```
+    NEXT_PUBLIC_TINY_MCE_API_KEY=<YOUR_TINY_MCE_API_KEY>
+    MONGODB_URL=mongodb://127.0.0.1:27017
+    NEXTAUTH_URL=http://localhost:3001/
+    NEXTAUTH_SECRET=secret
+    ALLOWED_ORIGIN=http://localhost:3000
+    NEXT_PUBLIC_DASHBOARD_URL=http://localhost:8080
+    NEXT_PUBLIC_DASHBOARDHOME_URL=http://localhost:3000/
+    ```
 
 ## Cara Menjalankan Colle Tanya Jawab
 1. Pastikan semua prasyarat terpenuhi dan dashboard Collaborative Learning sudah berjalan, serta Anda telah masuk ke dashboard.
