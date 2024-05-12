@@ -10,7 +10,7 @@ export const QuestionValidation = z.object({
     .min(20, "Explanation must be at least 20 characters")
     .max(2500, "Explanation cannot exceed 2500 characters"),
   tags: z
-    .array(z.string().nonempty("Tag cannot be empty"))
+    .array(z.string().nonempty("Tag cannot be empty").max(140, "Tag max 140 characters"))
     .max(10, "Maximum 10 tags allowed"),
   anonymous: z.boolean(), // Add 'anonymous' field to the schema
 });
