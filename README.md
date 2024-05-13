@@ -25,6 +25,7 @@ Proyek ini melibatkan tim pengembang yang terdiri dari:
 - **Typescript:** Pastikan Anda telah menginstal Typescript. Jika belum, Anda dapat menginstalnya menggunakan npm dengan perintah `npm install -g typescript`. Versi yang direkomendasikan: **5**
 - **MongoDB:** Pastikan Anda telah menginstal MongoDB di sistem Anda. Anda dapat mengunduhnya dari [mongodb.com](https://www.mongodb.com/try/download/community). Versi yang direkomendasikan: **7.0.9**
 - Buat akun TinyMCE di situs web resmi [TinyMCE](https://www.tiny.cloud/).
+- Buat akun Clerk di situs web resmi [Clerk](https://clerk.com/)
 - Pastikan Anda telah menginstal dan menjalankan dashboard [Collaborative Learning](https://github.com/farizibnu/collaborative-learning).
 
 ## Cara Install Colle Tanya Jawab
@@ -43,13 +44,16 @@ Proyek ini melibatkan tim pengembang yang terdiri dari:
    ```
 5. Buat file `.env` pada direktori root proyek Colle - Tanya Jawab. Isilah file tersebut dengan konfigurasi berikut:
     ```
-    NEXT_PUBLIC_TINY_MCE_API_KEY=<YOUR_TINY_MCE_API_KEY>
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<Your Key>
+    CLERK_SECRET_KEY=<Your Key>
+    NEXT_CLERK_WEBHOOK_SECRET=<Your Key>
+    NEXT_PUBLIC_TINY_MCE_API_KEY=<Your Key>
     MONGODB_URL=mongodb://127.0.0.1:27017
-    NEXTAUTH_URL=http://localhost:3001/
-    NEXTAUTH_SECRET=secret
-    ALLOWED_ORIGIN=http://localhost:3000
-    NEXT_PUBLIC_DASHBOARD_URL=http://localhost:8080
-    NEXT_PUBLIC_DASHBOARDHOME_URL=http://localhost:3000/
+    NEXTAUTH_URL = http://localhost:3001/
+    NEXTAUTH_SECRET = secret
+    ALLOWED_ORIGIN="http://localhost:3000"
+    NEXT_PUBLIC_DASHBOARD_URL="http://localhost:8080"
+    NEXT_PUBLIC_DASHBOARDHOME_URL = "http://localhost:3000/"
     ```
 
 ## Cara Menjalankan Colle Tanya Jawab
