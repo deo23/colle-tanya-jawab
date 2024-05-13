@@ -4,6 +4,14 @@
 ## Deskripsi
 Colle - Tanya Jawab adalah sebuah aplikasi yang memungkinkan pengguna untuk berbagi pertanyaan dan jawaban secara kolaboratif. Aplikasi ini memanfaatkan teknologi Next JS Fullstack, MongoDB sebagai basis data, dan Typescript untuk pengembangan.
 
+Proyek ini melibatkan tim pengembang yang terdiri dari:
+- Muhammad Deo Audha Rizki
+- Fardan Al Jihad
+- Tabitha Salsabila Permana
+- Reka Briyan Cahya Heryana
+- Suci Awalia Gardara
+- Muhammad Fikri Hidayatulloh
+
 ## Teknologi yang Digunakan
 <p align="left">
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg" alt="Next JS" width="40" height="40"/>
