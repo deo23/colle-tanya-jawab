@@ -8,9 +8,7 @@ import HomeFilters from "@/components/shared/Filters";
 import QuestionCard from "@/components/cards/QuestionCard";
 import { currentProfile } from "@/lib/fetchUserData";
 
-import {
-  getQuestions,
-} from "@/lib/actions/question.action";
+import { getQuestions } from "@/lib/actions/question.action";
 
 import { HomePageFilters } from "@/constants/filters";
 
@@ -22,7 +20,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Home({ searchParams }: SearchParamsProps) {
-
   let user;
   try {
     user = await currentProfile();
@@ -34,7 +31,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
 
   const userId = user ? user._id.toString() : null;
 
-  let result; 
+  let result;
 
   if (searchParams?.filter === "recommended") {
     if (userId) {
@@ -42,7 +39,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
         searchQuery: searchParams.q,
         filter: searchParams.filter,
         page: searchParams.page ? +searchParams.page : 1,
-      });      
+      });
     } else {
       result = {
         questions: [],
@@ -80,10 +77,7 @@ export default async function Home({ searchParams }: SearchParamsProps) {
 
         {/* <Filter filters={QuestionFilters} /> */}
 
-        <Filter
-          filters={HomePageFilters}
-        
-        />
+        <Filter filters={HomePageFilters} />
       </div>
 
       <HomeFilters filters={HomePageFilters} />

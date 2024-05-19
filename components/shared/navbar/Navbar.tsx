@@ -11,8 +11,10 @@ import GlobalSearch from "@/components/shared/search/GlobalSearch";
 const Navbar = () => {
   // Function to handle redirection
   const handleClick = () => {
-    const dashboardUrl = process.env.DASHBOARDHOME_URL || "";
+    const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARDHOME_URL;
     window.location.href = dashboardUrl;
+    console.log("🚀 ~ handleClick ~ dashboardUrl:", dashboardUrl);
+    console.log("Environment Variables:", process.env);
   };
 
   return (
