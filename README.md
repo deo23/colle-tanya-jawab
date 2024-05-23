@@ -68,6 +68,9 @@ Proyek ini melibatkan tim pengembang yang terdiri dari:
    ```
 5. Buka browser dan akses `http://localhost:3001/`.
 
+## API Documentation
+Untuk dokumentasi API lengkap, kunjungi link berikut: [API Documentation](https://documenter.getpostman.com/view/20553390/2sA3QpCtJd)
+
 ## Schema Diagram
 ![Schema Diagram](https://github.com/deo23/colle-tanya-jawab/blob/main/Readme%20Image/Schema-Diagram.png)
 
